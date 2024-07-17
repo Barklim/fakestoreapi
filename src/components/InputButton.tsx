@@ -8,6 +8,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import arrowDownIcon from "../assets/arrow-down.svg";
+import { TestId } from "../tests";
 
 interface InputButtonProps {
   todo: string;
@@ -36,6 +37,7 @@ const InputButton: FC<InputButtonProps> = ({ todo, setTodo, addTodo }) => {
           <Image src={arrowDownIcon} opacity={0.3} />
         </InputLeftElement>
         <Input
+          data-testid={TestId.InputButton}
           fontWeight={"200"}
           fontSize={"1.2em"}
           type="text"

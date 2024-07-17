@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Box, ColorMode, Flex, Text, useColorMode } from "@chakra-ui/react";
+import { TestId } from "../tests";
 
 interface StatusBarProps {
   itemLeft: number;
@@ -9,7 +10,10 @@ interface StatusBarProps {
   handleCompletedClick: () => Promise<void>;
 }
 
-const getTextColor = (isSelected: boolean, colorMode: ColorMode): "grey" | "black" | "white" => {
+const getTextColor = (
+  isSelected: boolean,
+  colorMode: ColorMode
+): "grey" | "black" | "white" => {
   if (isSelected) {
     return colorMode === "light" ? "black" : "white";
   } else {
@@ -25,7 +29,9 @@ export const StatusBar: FC<StatusBarProps> = ({
   handleCompletedClick,
 }) => {
   const [isMobileView, setIsMobileView] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<"all" | "active" | "completed">("all");
+  const [selectedTab, setSelectedTab] = useState<
+    "all" | "active" | "completed"
+  >("all");
   const { colorMode } = useColorMode();
 
   useEffect(() => {
@@ -75,6 +81,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               {itemLeft} {itemLeft > 1 ? "items" : "item"} left
             </Text>
             <Text
+              data-testid={TestId.StatusBarClear}
               onClick={handleClearAllClick}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
@@ -161,6 +168,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             </Text>
           </Flex>
           <Text
+            data-testid={TestId.StatusBarClear}
             onClick={handleClearAllClick}
             cursor={"pointer"}
             _hover={{ color: colorMode === "light" ? "black" : "white" }}

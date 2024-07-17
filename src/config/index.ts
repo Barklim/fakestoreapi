@@ -6,3 +6,5 @@ export const USE_API = false;
 export const API_URL = process.env.NODE_ENV === 'production' ? PROD_API_URL : DEV_API_URL;
 
 export const getApiUrl = () => API_URL;
+
+export const INIT_TODOS = true;

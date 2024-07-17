@@ -7,6 +7,7 @@ import {
   SystemStyleObject,
 } from "@chakra-ui/react";
 import InputButton from "./InputButton";
+import { TestId } from "../tests";
 
 interface InputSectionProps {
   addNewTodo: () => void;
@@ -32,6 +33,7 @@ const InputSection: React.FC<InputSectionProps> = ({
       >
         <InputButton todo={todo} setTodo={setTodo} addTodo={handleAddTodo} />
         <Button
+          data-testid={TestId.ButtonAdd}
           background={colorMode === "light" ? "white" : "#1a202c"}
           h={"3.5em"}
           w={"6em"}

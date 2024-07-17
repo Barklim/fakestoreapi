@@ -5,6 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 import Checkbox from "./Checkbox";
 import service from "../services";
 import { Todo } from "../services/Todo.dto";
+import { TestId } from "../tests";
 
 import checkIcon from "../assets/icon-check.svg";
 
@@ -78,6 +79,7 @@ const TodoItem: FC<TodoItemProps> = ({
               </Box>
               <Flex ml="1em" justifyContent={"space-between"} w="100%">
                 <Text
+                  data-testid={TestId.Todoitem}
                   fontWeight={"700"}
                   fontSize={"1.2rem"}
                   textDecoration={isCompleted ? "line-through" : "none"}
@@ -93,6 +95,7 @@ const TodoItem: FC<TodoItemProps> = ({
                 </Text>
                 {isVisible && (
                   <Box
+                    data-testid={TestId.TodoItemDelete}
                     cursor="pointer"
                     onClick={() => handleDeleteTodo(todo.id)}
                   >

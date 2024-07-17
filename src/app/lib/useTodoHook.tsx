@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import service from "../../services";
 import { Todo } from "../../services/Todo.dto";
 
-export const useTodoState = () => {
+export const useTodoState = (initState: boolean) => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [itemLeft, setItemLeft] = useState<number>(0);
@@ -26,19 +26,20 @@ export const useTodoState = () => {
   }, [todos]);
 
   useEffect(() => {
-    fetchTodos().then((data) => {
-      if (!data || data.length === 0) {
-        initTodos().then(() => {
-          fetchTodos().then((updatedTodos) => {
-            setTodos(updatedTodos);
-            setTodosLoaded(true);
+    
+      fetchTodos().then((data) => {
+        if (!data || data.length === 0 && initState) {
+          initTodos().then(() => {
+            fetchTodos().then((updatedTodos) => {
+              setTodos(updatedTodos);
+              setTodosLoaded(true);
+            });
           });
-        });
-      } else {
-        setTodos(data);
-        setTodosLoaded(true);
-      }
-    });
+        } else {
+          setTodos(data);
+          setTodosLoaded(true);
+        }
+      });
   }, []);
 
   const addNewTodo = async () => {
