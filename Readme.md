@@ -3,7 +3,7 @@
 Simple user list of FakeStoreApi application with TypeScript, React and React Hooks.
 
 - Client - [netlify](https://example.com)
-- json-server - [vercel](https://example.com)
+- json-server - [vercel](https://todo-list-json-server-hnyxyyqsa-klim-barks-projects.vercel.app/)
 
 ## Run application
 
@@ -13,6 +13,12 @@ npm install - install dependencies
 npm run start - run application in dev mode
 ```
 
+For local start better use local [json-server](https://github.com/Barklim/todo-list-json-server) it work faster
+```
+npm i && npm run start
+```
+if use local json-server change config/index.ts const URL 
+
 ## Scripts
 
 - `npm run start` - start application
@@ -20,7 +26,7 @@ npm run start - run application in dev mode
 - `npm run ts` - run typescript
 - `npm run start:js` - run built javascript
 - `npm run lint` - lint react files
-- `npm run preview` - deploy static site
+- `npm run preview` - preview application
 - `npm run test` - run unit test with jest
 
 ## Install tooling
@@ -33,17 +39,15 @@ Make sure you have the following installed
 ## Todo
 
 - jest
-- Linting, classnames
-- github ci
-- dotenv
-- todos for all, active, completed
 - relative paths for imports like @/module/ui/...
-- Keyboard pressing (radix ui?) e.t.c
+- local storage or indexdb
+- ban
+- Keyboard pressing, ctr+z, ctrl+e (radix ui?) e.t.c
 
 ## Frontend stack
 
 - **UI**: `react`, `chakra-ui`, `scss`
-- **Data model**: `local storage`
+- **Data model**: `json-server`
 - **Lang**: `typescript`
 - **Lint**: `eslint`, `prettier`, `stylelint`
 - **Deployment**: `netlify`

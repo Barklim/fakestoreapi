@@ -1,5 +1,5 @@
-import { Flex, InputGroup, InputLeftElement, Input, useColorMode } from "@chakra-ui/react";
-import Checkbox from "./Checkbox";
+import { Flex, InputGroup, InputLeftElement, Input, Image, useColorMode } from "@chakra-ui/react";
+import arrowDownIcon from "../assets/arrow-down.svg";
 
 interface InputButtonProps {
   todo: string;
@@ -28,7 +28,7 @@ const InputButton = ({
           alignItems={"center"}
           h={"100%"}
         >
-          <Checkbox width={"22px"} height={"22px"} />
+          <Image src={arrowDownIcon} opacity={0.3} />
         </InputLeftElement>
         <Input
           fontWeight={"200"}

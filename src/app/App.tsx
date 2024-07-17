@@ -153,7 +153,7 @@ function App() {
             fontSize={"large"}
             mt={"10"}
           >
-            <Text>Drag & drop to reorder list</Text>
+            <Text userSelect={'none'}>Drag & drop to reorder list</Text>
           </Flex>
         </Box>
       </Box>
