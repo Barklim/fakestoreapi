@@ -19,6 +19,7 @@ const InputButton = ({
       background={colorMode === "light" ? "white" : "#1a202c"}
       p="0.1em 0.1em 0.1em 0.6em"
       borderRadius={"0.5em"}
+      w="100%"
     >
       <InputGroup>
         <InputLeftElement
@@ -35,6 +36,7 @@ const InputButton = ({
           fontSize={"1.2em"}
           type="text"
           h="2.8em"
+          w="100%"
           variant={"unstyled"}
           placeholder="What needs to be done?"
           ml={".5em"}

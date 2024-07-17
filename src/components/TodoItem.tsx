@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Flex, Box, Image, Text, useColorMode } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Draggable } from "react-beautiful-dnd";
+import Checkbox from "./Checkbox";
+import service from "../services";
+import { Todo } from "../services/Todo.dto";
 
 import checkIcon from "../assets/icon-check.svg";
-import Checkbox from "./Checkbox";
-import { isTodoCompleted } from "../actions";
-import { Todo } from "../actions/Todo.dto";
 
 interface TodoItemProps {
   todo: Todo;
@@ -26,6 +26,7 @@ const TodoItem = ({
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
   const { colorMode, } = useColorMode();
+  const { isTodoCompleted } = service;
 
   const handleClick = async (id: string) => {
     await handleCompletedTodo(id);

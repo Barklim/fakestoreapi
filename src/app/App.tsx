@@ -14,28 +14,31 @@ import lightBgImage from "../assets/bg_desktop_light.png";
 import darkBgImage from "../assets/bg_desktop_dark.jpeg";
 import { useEffect, useState, KeyboardEvent } from "react";
 import { v4 } from "uuid";
+import TodoList from "../components/TodoList";
+import { StatusBar } from "../components/StatusBar";
+import { Todo } from "../services/Todo.dto";
+import service from "../services";
 
 import moonIcon from "../assets/icon-moon.svg";
 import sunIcon from "../assets/icon-sun.svg";
-import {
-  addTodo,
-  clearAllCompletedTodos,
-  countUncompletedTodo,
-  deleteTodo,
-  fetchTodos,
-  getActiveTodos,
-  getCompletedTodos,
-  markTodoCompleted,
-} from "../actions";
-import TodoList from "../components/TodoList";
-import { StatusBar } from "../components/StatusBar";
-import { Todo } from "../actions/Todo.dto";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [itemLeft, setItemLeft] = useState<number>(0);
+  const [todosLoaded, setTodosLoaded] = useState(false);
+  const {
+    addTodo,
+    initTodos,
+    clearAllCompletedTodos,
+    countUncompletedTodo,
+    deleteTodo,
+    fetchTodos,
+    getActiveTodos,
+    getCompletedTodos,
+    markTodoCompleted,
+  } = service;
 
   const handleAddTodo = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (todo && e.keyCode === 13) {
@@ -79,12 +82,24 @@ function App() {
   };
 
   useEffect(() => {
-    fetchTodos().then((data) => setTodos(data));
-  }, []);
-
-  useEffect(() => {
     countUncompletedTodo().then((count) => setItemLeft(count));
   }, [todos]);
+
+  useEffect(() => {
+    fetchTodos().then((data) => {
+      if (!data || data.length === 0) {
+        initTodos().then(() => {
+          fetchTodos().then((updatedTodos) => {
+            setTodos(updatedTodos);
+            setTodosLoaded(true);
+          });
+        });
+      } else {
+        setTodos(data);
+        setTodosLoaded(true);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -108,11 +123,33 @@ function App() {
         </Flex>
         <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="4em 0" m="auto">
           <Header />
-          <InputButton
-            todo={todo}
-            setTodo={setTodo}
-            addTodo={handleAddTodo}
-          />
+
+          <Box m="auto" w="100%">
+            <Flex
+              justifyContent={"space-between"}
+              gap={"1em"}
+              alignItems={"center"}
+              w={"100%"}
+            >
+              <InputButton
+                todo={todo}
+                setTodo={setTodo}
+                addTodo={handleAddTodo}
+              />
+              <Button
+                background={colorMode === "light" ? "white" : "#1a202c"}
+                h={"3.5em"}
+                w={"6em"}
+                _hover={
+                  colorMode === "light"
+                    ? undefined
+                    : ("none" as SystemStyleObject)
+                }
+              >
+                Add
+              </Button>
+            </Flex>
+          </Box>
         </Box>
       </Box>
 
@@ -135,6 +172,7 @@ function App() {
                 handleCompletedTodo={handleCompletedTodo}
                 handleDeleteTodo={handleDeleteTodo}
                 setTodos={setTodos}
+                todosLoaded={todosLoaded}
               />
             </Box>
             <StatusBar
@@ -153,7 +191,7 @@ function App() {
             fontSize={"large"}
             mt={"10"}
           >
-            <Text userSelect={'none'}>Drag & drop to reorder list</Text>
+            <Text userSelect={"none"}>Drag & drop to reorder list</Text>
           </Flex>
         </Box>
       </Box>

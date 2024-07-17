@@ -2,7 +2,7 @@
 
 Simple user list of FakeStoreApi application with TypeScript, React and React Hooks.
 
-- Client - [netlify](https://example.com)
+- Client - [vercel](todos-swart-eight.vercel.app/)
 - json-server - [vercel](https://todo-list-json-server-hnyxyyqsa-klim-barks-projects.vercel.app/)
 
 ## Run application
@@ -41,16 +41,17 @@ Make sure you have the following installed
 - jest
 - relative paths for imports like @/module/ui/...
 - local storage or indexdb
+- feature api for first time init
 - ban
 - Keyboard pressing, ctr+z, ctrl+e (radix ui?) e.t.c
 
 ## Frontend stack
 
 - **UI**: `react`, `chakra-ui`, `scss`
-- **Data model**: `json-server`
+- **Data model**: `json-server`, `local storage`
 - **Lang**: `typescript`
 - **Lint**: `eslint`, `prettier`, `stylelint`
-- **Deployment**: `netlify`
+- **Deployment**: `vercel`
 
 <div align="center">
 
