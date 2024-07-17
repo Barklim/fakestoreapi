@@ -17,6 +17,8 @@ npm run start - run application in dev mode
 
 - `npm run start` - start application
 - `npm run build` - build dev mode
+- `npm run ts` - run typescript
+- `npm run start:js` - run built javascript
 - `npm run lint` - lint react files
 - `npm run preview` - deploy static site
 - `npm run test` - run unit test with jest
@@ -34,7 +36,7 @@ Make sure you have the following installed
 - Linting, classnames
 - github ci
 - dotenv
-- fix layout
+- todos for all, active, completed
 - relative paths for imports like @/module/ui/...
 - Keyboard pressing (radix ui?) e.t.c
 

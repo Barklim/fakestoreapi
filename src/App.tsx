@@ -1,5 +1,13 @@
 import "./App.css";
-import { Box, Button, useColorMode, Image, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  useColorMode,
+  Image,
+  Flex,
+  Text,
+  SystemStyleObject,
+} from "@chakra-ui/react";
 import Header from "./components/Header";
 import InputButton from "./components/InputButton";
 import lightBgImage from "./assets/bg_desktop_light.png";
@@ -92,17 +100,13 @@ function App() {
           <Button
             variant={"ghost"}
             onClick={toggleColorMode}
-            _hover="none"
-            _active="none"
+            _hover={"none" as SystemStyleObject}
+            _active={"none" as SystemStyleObject}
           >
             <Image src={colorMode !== "light" ? moonIcon : sunIcon} />
           </Button>
         </Flex>
-        <Box
-          w={{ base: "80%", md: "60%", lg: "40%" }}
-          p="4em 0"
-          m="auto"
-        >
+        <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="4em 0" m="auto">
           <Header />
           <InputButton
             colorMode={colorMode}
@@ -132,6 +136,7 @@ function App() {
                 colorMode={colorMode}
                 handleCompletedTodo={handleCompletedTodo}
                 handleDeleteTodo={handleDeleteTodo}
+                setTodos={setTodos}
               />
             </Box>
             <StatusBar
@@ -143,6 +148,16 @@ function App() {
               handleCompletedClick={handleCompletedClick}
             />
           </Box>
+          <Flex
+            justifyContent={"center"}
+            alignItems={"center"}
+            color={"grey"}
+            fontWeight={"700"}
+            fontSize={"large"}
+            mt={"10"}
+          >
+            <Text>Drag & drop to reorder list</Text>
+          </Flex>
         </Box>
       </Box>
     </>

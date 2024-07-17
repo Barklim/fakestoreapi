@@ -6,10 +6,10 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
+    "ts": "tsc",
+    "start:js": "node dist/index.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "build1": "tsc",
-    "start1": "node dist/index.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -21,11 +21,13 @@
     "framer-motion": "^11.2.10",
     "prettier": "^3.3.1",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.2.22",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
