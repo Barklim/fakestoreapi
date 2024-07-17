@@ -6,7 +6,7 @@ import './index.css'
 
 export const theme = extendTheme({
   fonts: {
-    body: "'Josefin Sans', sans-serif",
+    body: "'Roboto', sans-serif",
   },
 });
 

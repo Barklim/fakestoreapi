@@ -1,9 +1,9 @@
-interface Todo {
+export interface Todo {
   id: string;
   title: string;
   isCompleted: boolean;
 }
 
-interface TodosResponse {
+export interface TodosResponse {
   todos: Todo[] | PromiseLike<Todo[]>;
 }

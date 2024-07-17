@@ -9,13 +9,25 @@ import { v4 } from "uuid";
 
 import moonIcon from "./assets/icon-moon.svg";
 import sunIcon from "./assets/icon-sun.svg";
-import { addTodo, deleteTodo, fetchTodos, markTodoCompleted } from "./actions";
+import {
+  addTodo,
+  clearAllCompletedTodos,
+  countUncompletedTodo,
+  deleteTodo,
+  fetchTodos,
+  getActiveTodos,
+  getCompletedTodos,
+  markTodoCompleted,
+} from "./actions";
 import TodoList from "./components/TodoList";
+import { StatusBar } from "./components/StatusBar";
+import { Todo } from "./actions/Todo.dto";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [itemLeft, setItemLeft] = useState<number>(0);
 
   const handleAddTodo = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (todo && e.keyCode === 13) {
@@ -33,6 +45,7 @@ function App() {
 
   const handleCompletedTodo = async (id: string) => {
     await markTodoCompleted(id);
+    countUncompletedTodo().then((count) => setItemLeft(count));
   };
 
   const handleDeleteTodo = async (id: string) => {
@@ -40,9 +53,30 @@ function App() {
     setTodos(await fetchTodos());
   };
 
+  const handleClearAllClick = async () => {
+    await clearAllCompletedTodos();
+    fetchTodos().then((data) => setTodos(data));
+  };
+
+  const handleAllClick = async () => {
+    fetchTodos().then((data) => setTodos(data));
+  };
+
+  const handleActiveClick = async () => {
+    getActiveTodos().then((todos) => setTodos(todos));
+  };
+
+  const handleCompletedClick = async () => {
+    getCompletedTodos().then((todos) => setTodos(todos));
+  };
+
   useEffect(() => {
     fetchTodos().then((data) => setTodos(data));
   }, []);
+
+  useEffect(() => {
+    countUncompletedTodo().then((count) => setItemLeft(count));
+  }, [todos]);
 
   return (
     <>
@@ -65,12 +99,9 @@ function App() {
           </Button>
         </Flex>
         <Box
-          w={"50%"}
+          w={{ base: "80%", md: "60%", lg: "40%" }}
           p="4em 0"
           m="auto"
-          position={"absolute"}
-          left={{ lg: "23.2em", md: "15.2em", base: "11.2em" }}
-          borderRadius={"5px"}
         >
           <Header />
           <InputButton
@@ -88,20 +119,28 @@ function App() {
         background={"#242424"}
         position={"relative"}
       >
-        <Box
-          w={"50%"}
-          position={"absolute"}
-          top={"-74"}
-          left={{ lg: "23.2em", md: "15.2em", base: "11.2em" }}
-          borderRadius={"5px"}
-          background={colorMode === "light" ? "white" : "#1a202c"}
-        >
-          <Box maxH={"50vh"} overflowY={"auto"}>
-            <TodoList
-              todos={todos}
+        <Box minW={"100%"} m={"auto"} position={"absolute"} top={"-74"}>
+          <Box w={{ base: "80%", md: "60%", lg: "40%" }} m={"auto"}>
+            <Box
+              maxH={"50vh"}
+              overflowY={"auto"}
+              borderTopRadius={"10px"}
+              backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+            >
+              <TodoList
+                todos={todos}
+                colorMode={colorMode}
+                handleCompletedTodo={handleCompletedTodo}
+                handleDeleteTodo={handleDeleteTodo}
+              />
+            </Box>
+            <StatusBar
               colorMode={colorMode}
-              handleCompletedTodo={handleCompletedTodo}
-              handleDeleteTodo={handleDeleteTodo}
+              itemLeft={itemLeft}
+              handleClearAllClick={handleClearAllClick}
+              handleAllClick={handleAllClick}
+              handleActiveClick={handleActiveClick}
+              handleCompletedClick={handleCompletedClick}
             />
           </Box>
         </Box>

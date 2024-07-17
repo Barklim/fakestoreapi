@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import checkIcon from "../assets/icon-check.svg";
 import Checkbox from "./Checkbox";
 import { isTodoCompleted } from "../actions";
+import { Todo } from "../actions/Todo.dto";
 
 interface TodoItemProps {
   colorMode: "light" | "dark";
   todo: Todo;
-  handleCompletedTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleDeleteTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleCompletedTodo: (id: string) => Promise<void>;
+  handleDeleteTodo: (id: string) => Promise<void>;
 }
 
 const TodoItem = ({

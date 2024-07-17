@@ -5,8 +5,8 @@ import { Todo } from "../actions/Todo.dto";
 interface TodoItemProps {
   colorMode: "light" | "dark";
   todos: Todo[];
-  handleCompletedTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleDeleteTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleCompletedTodo: (id: string) => Promise<void>;
+  handleDeleteTodo: (id: string) => Promise<void>;
 }
 
 const TodoList = ({
