@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
+import { Box, ColorMode, Flex, Text, useColorMode } from "@chakra-ui/react";
 
 interface StatusBarProps {
   itemLeft: number;
@@ -9,6 +9,14 @@ interface StatusBarProps {
   handleCompletedClick: () => Promise<void>;
 }
 
+const getTextColor = (isSelected: boolean, colorMode: ColorMode): "grey" | "black" | "white" => {
+  if (isSelected) {
+    return colorMode === "light" ? "black" : "white";
+  } else {
+    return "grey";
+  }
+};
+
 export const StatusBar: FC<StatusBarProps> = ({
   itemLeft,
   handleClearAllClick,
@@ -17,6 +25,7 @@ export const StatusBar: FC<StatusBarProps> = ({
   handleCompletedClick,
 }) => {
   const [isMobileView, setIsMobileView] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<"all" | "active" | "completed">("all");
   const { colorMode } = useColorMode();
 
   useEffect(() => {
@@ -33,8 +42,25 @@ export const StatusBar: FC<StatusBarProps> = ({
     };
   }, []);
 
+  const handleTabClick = (tab: "all" | "active" | "completed") => {
+    setSelectedTab(tab);
+    switch (tab) {
+      case "all":
+        handleAllClick();
+        break;
+      case "active":
+        handleActiveClick();
+        break;
+      case "completed":
+        handleCompletedClick();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <Box fontWeight={"700"} color={"grey"}>
+    <Box fontWeight={"700"} color={colorMode === "light" ? "black" : "white"}>
       {isMobileView ? (
         <Flex direction={"column"}>
           <Flex
@@ -66,23 +92,26 @@ export const StatusBar: FC<StatusBarProps> = ({
             gap={"1em"}
           >
             <Text
-              onClick={handleAllClick}
+              onClick={() => handleTabClick("all")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              color={getTextColor(selectedTab === "all", colorMode)}
             >
               All
             </Text>
             <Text
-              onClick={handleActiveClick}
+              onClick={() => handleTabClick("active")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              color={getTextColor(selectedTab === "active", colorMode)}
             >
               Active
             </Text>
             <Text
-              onClick={handleCompletedClick}
+              onClick={() => handleTabClick("completed")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              color={getTextColor(selectedTab === "completed", colorMode)}
             >
               Completed
             </Text>
@@ -107,23 +136,26 @@ export const StatusBar: FC<StatusBarProps> = ({
             gap={"1em"}
           >
             <Text
-              onClick={handleAllClick}
+              onClick={() => handleTabClick("all")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              color={getTextColor(selectedTab === "all", colorMode)}
             >
               All
             </Text>
             <Text
-              onClick={handleActiveClick}
+              onClick={() => handleTabClick("active")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              color={getTextColor(selectedTab === "active", colorMode)}
             >
               Active
             </Text>
             <Text
-              onClick={handleCompletedClick}
+              onClick={() => handleTabClick("completed")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              color={getTextColor(selectedTab === "completed", colorMode)}
             >
               Completed
             </Text>
