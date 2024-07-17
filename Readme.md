@@ -21,7 +21,7 @@ npm run start - run application in dev mode
 - `npm run preview` - deploy static site
 - `npm run test` - run unit test with jest
 
-### Install tooling
+## Install tooling
 
 Make sure you have the following installed
 
@@ -33,6 +33,9 @@ Make sure you have the following installed
 - jest
 - Linting, classnames
 - github ci
+- dotenv
+- fix layout
+- relative paths for imports like @/module/ui/...
 - Keyboard pressing (radix ui?) e.t.c
 
 ## Frontend stack

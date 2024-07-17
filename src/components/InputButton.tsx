@@ -1,7 +1,19 @@
 import { Flex, InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
 import Checkbox from "./Checkbox";
 
-const InputButton = ({ colorMode, todo, setTodo, addTodo }) => {
+interface InputButtonProps {
+  colorMode: "light" | "dark";
+  todo: string;
+  setTodo: React.Dispatch<React.SetStateAction<string>>;
+  addTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const InputButton = ({
+  colorMode = "dark",
+  todo,
+  setTodo,
+  addTodo,
+}: InputButtonProps) => {
   return (
     <Flex
       m="1.2em 0"
@@ -20,7 +32,7 @@ const InputButton = ({ colorMode, todo, setTodo, addTodo }) => {
           <Checkbox width={"22px"} height={"22px"} />
         </InputLeftElement>
         <Input
-          fontWeight={"700"}
+          fontWeight={"200"}
           fontSize={"1.2em"}
           type="text"
           h="2.8em"
