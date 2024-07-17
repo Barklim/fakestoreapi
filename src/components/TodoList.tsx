@@ -1,10 +1,10 @@
 import { Todo } from "../actions/Todo.dto";
 import { Dispatch, SetStateAction } from "react";
-
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import TodoItem from "./TodoItem";
 import { updateReOrderedTodos } from "../actions";
 import { v4 } from "uuid";
+import StrictModeDroppable from "./StrictModeDroppable";
 
 const reorder = (list: Todo[], startIndex: number, endIndex: number): Todo[] => {
   const result = Array.from(list);
@@ -42,9 +42,10 @@ const TodoList = ({
     setTodos(updatedTodos);
     await updateReOrderedTodos(updatedTodos);
   };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd} enableDefaultSensors >
-      <Droppable droppableId={v4()}>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <StrictModeDroppable droppableId={v4()}>
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {todos.length > 0 &&
@@ -61,7 +62,7 @@ const TodoList = ({
             {provided.placeholder}
           </div>
         )}
-      </Droppable>
+      </StrictModeDroppable>
     </DragDropContext>
   );
 };

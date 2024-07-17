@@ -18,7 +18,7 @@ interface TodoItemProps {
 
 const TodoItem = ({
   todo,
-  colorMode = "dark",
+  colorMode,
   handleCompletedTodo,
   handleDeleteTodo,
   index,
@@ -78,8 +78,8 @@ const TodoItem = ({
                     isCompleted
                       ? "grey"
                       : colorMode === "light"
-                        ? "black"
-                        : "white"
+                      ? "black"
+                      : "white"
                   }
                 >
                   {todo.title}
