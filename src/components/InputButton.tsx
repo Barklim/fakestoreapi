@@ -1,19 +1,18 @@
-import { Flex, InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
+import { Flex, InputGroup, InputLeftElement, Input, useColorMode } from "@chakra-ui/react";
 import Checkbox from "./Checkbox";
 
 interface InputButtonProps {
-  colorMode: "light" | "dark";
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
   addTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputButton = ({
-  colorMode = "dark",
   todo,
   setTodo,
   addTodo,
 }: InputButtonProps) => {
+  const { colorMode, } = useColorMode();
   return (
     <Flex
       m="1.2em 0"

@@ -1,8 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import { createRoot } from "react-dom/client";
+import App from "./app/App.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import './index.css'
+import "./index.css";
 
 export const theme = extendTheme({
   fonts: {
@@ -10,10 +10,20 @@ export const theme = extendTheme({
   },
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <ChakraProvider theme={theme}>
-    <React.StrictMode>
+const container = document.getElementById("root");
+
+if (!container) {
+  throw new Error(
+    "The root container was not found. Failed to mount react application"
+  );
+}
+
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <ChakraProvider theme={theme}>
       <App />
-    </React.StrictMode>
-  </ChakraProvider>
+    </ChakraProvider>
+  </React.StrictMode>
 );

@@ -1,8 +1,7 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 interface StatusBarProps {
-  colorMode: "light" | "dark";
   itemLeft: number;
   handleClearAllClick: () => Promise<void>;
   handleAllClick: () => Promise<void>;
@@ -11,7 +10,6 @@ interface StatusBarProps {
 }
 
 export const StatusBar = ({
-  colorMode = "dark",
   itemLeft,
   handleClearAllClick,
   handleAllClick,
@@ -19,6 +17,7 @@ export const StatusBar = ({
   handleCompletedClick,
 }: StatusBarProps) => {
   const [isMobileView, setIsMobileView] = useState(false);
+  const { colorMode, } = useColorMode();
 
   useEffect(() => {
     function handleResize() {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Flex, Box, Image, Text } from "@chakra-ui/react";
+import { Flex, Box, Image, Text, useColorMode } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Draggable } from "react-beautiful-dnd";
 
@@ -9,22 +9,23 @@ import { isTodoCompleted } from "../actions";
 import { Todo } from "../actions/Todo.dto";
 
 interface TodoItemProps {
-  colorMode: "light" | "dark";
   todo: Todo;
   handleCompletedTodo: (id: string) => Promise<void>;
   handleDeleteTodo: (id: string) => Promise<void>;
+  isDragDisabled: boolean;
   index: number;
 }
 
 const TodoItem = ({
   todo,
-  colorMode,
   handleCompletedTodo,
   handleDeleteTodo,
+  isDragDisabled,
   index,
 }: TodoItemProps) => {
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
+  const { colorMode, } = useColorMode();
 
   const handleClick = async (id: string) => {
     await handleCompletedTodo(id);
@@ -38,7 +39,11 @@ const TodoItem = ({
   }, [todo.id]);
 
   return (
-    <Draggable draggableId={todo.id} index={index}>
+    <Draggable
+      draggableId={todo.id}
+      index={index}
+      isDragDisabled={isDragDisabled}
+    >
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -51,6 +56,7 @@ const TodoItem = ({
             borderBottom="1px solid grey"
             onMouseEnter={() => setIsVisible(true)}
             onMouseLeave={() => setIsVisible(false)}
+            background={colorMode === "light" ? "white" : "#1a202c"}
           >
             <Flex alignItems={"center"} minW={"100%"}>
               <Box cursor={"pointer"} onClick={() => handleClick(todo.id)}>
@@ -78,8 +84,8 @@ const TodoItem = ({
                     isCompleted
                       ? "grey"
                       : colorMode === "light"
-                      ? "black"
-                      : "white"
+                        ? "black"
+                        : "white"
                   }
                 >
                   {todo.title}

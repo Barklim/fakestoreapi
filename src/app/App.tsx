@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import {
   Box,
   Button,
@@ -8,15 +8,15 @@ import {
   Text,
   SystemStyleObject,
 } from "@chakra-ui/react";
-import Header from "./components/Header";
-import InputButton from "./components/InputButton";
-import lightBgImage from "./assets/bg_desktop_light.png";
-import darkBgImage from "./assets/bg_desktop_dark.jpeg";
+import Header from "../components/Header";
+import InputButton from "../components/InputButton";
+import lightBgImage from "../assets/bg_desktop_light.png";
+import darkBgImage from "../assets/bg_desktop_dark.jpeg";
 import { useEffect, useState, KeyboardEvent } from "react";
 import { v4 } from "uuid";
 
-import moonIcon from "./assets/icon-moon.svg";
-import sunIcon from "./assets/icon-sun.svg";
+import moonIcon from "../assets/icon-moon.svg";
+import sunIcon from "../assets/icon-sun.svg";
 import {
   addTodo,
   clearAllCompletedTodos,
@@ -26,10 +26,10 @@ import {
   getActiveTodos,
   getCompletedTodos,
   markTodoCompleted,
-} from "./actions";
-import TodoList from "./components/TodoList";
-import { StatusBar } from "./components/StatusBar";
-import { Todo } from "./actions/Todo.dto";
+} from "../actions";
+import TodoList from "../components/TodoList";
+import { StatusBar } from "../components/StatusBar";
+import { Todo } from "../actions/Todo.dto";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -109,7 +109,6 @@ function App() {
         <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="4em 0" m="auto">
           <Header />
           <InputButton
-            colorMode={colorMode}
             todo={todo}
             setTodo={setTodo}
             addTodo={handleAddTodo}
@@ -133,14 +132,12 @@ function App() {
             >
               <TodoList
                 todos={todos}
-                colorMode={colorMode}
                 handleCompletedTodo={handleCompletedTodo}
                 handleDeleteTodo={handleDeleteTodo}
                 setTodos={setTodos}
               />
             </Box>
             <StatusBar
-              colorMode={colorMode}
               itemLeft={itemLeft}
               handleClearAllClick={handleClearAllClick}
               handleAllClick={handleAllClick}

@@ -14,7 +14,6 @@ const reorder = (list: Todo[], startIndex: number, endIndex: number): Todo[] => 
 };
 
 interface TodoItemProps {
-  colorMode: "light" | "dark";
   todos: Todo[];
   handleCompletedTodo: (id: string) => Promise<void>;
   handleDeleteTodo: (id: string) => Promise<void>;
@@ -23,11 +22,11 @@ interface TodoItemProps {
 
 const TodoList = ({
   todos,
-  colorMode = "dark",
   handleCompletedTodo,
   handleDeleteTodo,
   setTodos,
 }: TodoItemProps) => {
+  const isDragDisabled = todos.length === 1;
   const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
 
@@ -52,10 +51,10 @@ const TodoList = ({
               todos.map((todo, index) => (
                 <TodoItem
                   key={todo.id}
-                  colorMode={colorMode}
                   todo={todo}
                   handleCompletedTodo={handleCompletedTodo}
                   handleDeleteTodo={handleDeleteTodo}
+                  isDragDisabled={isDragDisabled}
                   index={index}
                 />
               ))}
