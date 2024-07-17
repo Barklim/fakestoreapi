@@ -16,12 +16,23 @@ npm run start - run application in dev mode
 ## Scripts
 
 - `npm run start` - start application
+- `npm run build` - build dev mode
+- `npm run lint` - lint react files
+- `npm run preview` - deploy static site
 - `npm run test` - run unit test with jest
+
+### Install tooling
+
+Make sure you have the following installed
+
+- NodeJS — check .nvmrc file for needed version
+- Yarn
 
 ## Todo
 
-- Linting, prettier
-- classnames
+- jest
+- Linting, classnames
+- github ci
 - Keyboard pressing (radix ui?) e.t.c
 
 ## Frontend stack
