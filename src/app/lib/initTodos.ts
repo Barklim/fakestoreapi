@@ -1,4 +1,4 @@
-import initTodosDb from "../../../db.json";
+import initTodosDb from "../../config/db.json";
 import { v4 } from "uuid";
 
 const todoList = initTodosDb.data?.todos || [];

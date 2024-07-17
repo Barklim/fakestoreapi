@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Flex, Box, Image, Text, useColorMode } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Draggable } from "react-beautiful-dnd";
@@ -16,16 +16,16 @@ interface TodoItemProps {
   index: number;
 }
 
-const TodoItem = ({
+const TodoItem: FC<TodoItemProps> = ({
   todo,
   handleCompletedTodo,
   handleDeleteTodo,
   isDragDisabled,
   index,
-}: TodoItemProps) => {
+}) => {
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
-  const { colorMode, } = useColorMode();
+  const { colorMode } = useColorMode();
   const { isTodoCompleted } = service;
 
   const handleClick = async (id: string) => {

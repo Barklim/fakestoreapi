@@ -1,11 +1,18 @@
-import { useEffect, useState, ReactElement } from "react";
-import { Droppable, DroppableProps, DroppableProvided } from "react-beautiful-dnd";
+import { FC, useEffect, useState, ReactElement } from "react";
+import {
+  Droppable,
+  DroppableProps,
+  DroppableProvided,
+} from "react-beautiful-dnd";
 
-interface StrictModeDroppableProps extends Omit<DroppableProps, 'children'> {
+interface StrictModeDroppableProps extends Omit<DroppableProps, "children"> {
   children: (provided: DroppableProvided) => ReactElement;
 }
 
-const StrictModeDroppable = ({ children, ...props }: StrictModeDroppableProps) => {
+const StrictModeDroppable: FC<StrictModeDroppableProps> = ({
+  children,
+  ...props
+}) => {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {

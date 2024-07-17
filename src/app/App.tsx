@@ -40,8 +40,8 @@ function App() {
     markTodoCompleted,
   } = service;
 
-  const handleAddTodo = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (todo && e.keyCode === 13) {
+  const addNewTodo = async () => {
+    if (todo) {
       const newTodo = {
         id: v4(),
         title: todo,
@@ -51,6 +51,12 @@ function App() {
       await addTodo(newTodo);
       setTodos(await fetchTodos());
       setTodo("");
+    }
+  };
+
+  const handleAddTodo = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) {
+      addNewTodo();
     }
   };
 
@@ -140,6 +146,7 @@ function App() {
                 background={colorMode === "light" ? "white" : "#1a202c"}
                 h={"3.5em"}
                 w={"6em"}
+                onClick={addNewTodo}
                 _hover={
                   colorMode === "light"
                     ? undefined

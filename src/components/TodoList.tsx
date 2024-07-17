@@ -1,19 +1,23 @@
-import { Todo } from "../services/Todo.dto";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { FC, Dispatch, SetStateAction } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { Todo } from "../services/Todo.dto";
 import TodoItem from "./TodoItem";
 import service from "../services";
 import StrictModeDroppable from "./StrictModeDroppable";
 import { v4 } from "uuid";
 
-const reorder = (list: Todo[], startIndex: number, endIndex: number): Todo[] => {
+const reorder = (
+  list: Todo[],
+  startIndex: number,
+  endIndex: number
+): Todo[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
   return result;
 };
 
-interface TodoItemProps {
+interface TodoListProps {
   todos: Todo[];
   handleCompletedTodo: (id: string) => Promise<void>;
   handleDeleteTodo: (id: string) => Promise<void>;
@@ -21,21 +25,20 @@ interface TodoItemProps {
   todosLoaded: boolean;
 }
 
-const TodoList = ({
+const TodoList: FC<TodoListProps> = ({
   todos,
   handleCompletedTodo,
   handleDeleteTodo,
   setTodos,
   todosLoaded,
-}: TodoItemProps) => {
-
+}) => {
   if (!todosLoaded) {
     return <div>Loading...</div>;
   }
 
   const isDragDisabled = todos.length === 1;
   const { updateReOrderedTodos } = service;
-  
+
   const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
 

@@ -1,5 +1,5 @@
+import { FC, useEffect, useState } from "react";
 import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 
 interface StatusBarProps {
   itemLeft: number;
@@ -9,15 +9,15 @@ interface StatusBarProps {
   handleCompletedClick: () => Promise<void>;
 }
 
-export const StatusBar = ({
+export const StatusBar: FC<StatusBarProps> = ({
   itemLeft,
   handleClearAllClick,
   handleAllClick,
   handleActiveClick,
   handleCompletedClick,
-}: StatusBarProps) => {
+}) => {
   const [isMobileView, setIsMobileView] = useState(false);
-  const { colorMode, } = useColorMode();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     function handleResize() {
@@ -32,6 +32,7 @@ export const StatusBar = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <Box fontWeight={"700"} color={"grey"}>
       {isMobileView ? (
@@ -139,3 +140,5 @@ export const StatusBar = ({
     </Box>
   );
 };
+
+export default StatusBar;

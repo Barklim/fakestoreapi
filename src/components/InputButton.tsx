@@ -1,4 +1,12 @@
-import { Flex, InputGroup, InputLeftElement, Input, Image, useColorMode } from "@chakra-ui/react";
+import { FC } from "react";
+import {
+  Flex,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Image,
+  useColorMode,
+} from "@chakra-ui/react";
 import arrowDownIcon from "../assets/arrow-down.svg";
 
 interface InputButtonProps {
@@ -7,12 +15,8 @@ interface InputButtonProps {
   addTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const InputButton = ({
-  todo,
-  setTodo,
-  addTodo,
-}: InputButtonProps) => {
-  const { colorMode, } = useColorMode();
+const InputButton: FC<InputButtonProps> = ({ todo, setTodo, addTodo }) => {
+  const { colorMode } = useColorMode();
   return (
     <Flex
       m="1.2em 0"
