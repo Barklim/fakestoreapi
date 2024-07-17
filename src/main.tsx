@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./app/App.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "./index.css";
+import { ContextProvider } from "./app/providers/ContextProvider/index.tsx";
 
 export const theme = extendTheme({
   fonts: {
@@ -22,8 +23,10 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <ContextProvider>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </ContextProvider>
   </React.StrictMode>
 );

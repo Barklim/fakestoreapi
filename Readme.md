@@ -33,6 +33,7 @@ Make sure you have the following installed
 
 - add some styled scss
 - migrate from vite to webpack, vitest to jest
+- handleclick usecallback?
 - down button must close todos with animation
 - relative paths for imports like @/module/ui/...
 - local storage or indexdb

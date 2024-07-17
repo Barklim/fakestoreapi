@@ -24,10 +24,9 @@ const Todo: React.FC<TodoProps> = ({ initState = false }) => {
     handleCompletedTodo,
     handleDeleteTodo,
     handleClearAllClick,
-    handleAllClick,
-    handleActiveClick,
-    handleCompletedClick,
     handleAddTodo,
+    currentTab,
+    handleTabClick,
   } = useTodoState(initState);
 
   return (
@@ -77,9 +76,8 @@ const Todo: React.FC<TodoProps> = ({ initState = false }) => {
             <StatusBar
               itemLeft={itemLeft}
               handleClearAllClick={handleClearAllClick}
-              handleAllClick={handleAllClick}
-              handleActiveClick={handleActiveClick}
-              handleCompletedClick={handleCompletedClick}
+              currentTab={currentTab}
+              handleTabClick={handleTabClick}
             />
           </Box>
           <Flex

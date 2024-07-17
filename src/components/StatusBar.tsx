@@ -5,9 +5,8 @@ import { TestId } from "../tests";
 interface StatusBarProps {
   itemLeft: number;
   handleClearAllClick: () => Promise<void>;
-  handleAllClick: () => Promise<void>;
-  handleActiveClick: () => Promise<void>;
-  handleCompletedClick: () => Promise<void>;
+  handleTabClick: (tab: "all" | "active" | "completed") => void;
+  currentTab: "all" | "active" | "completed";
 }
 
 const getTextColor = (
@@ -24,14 +23,10 @@ const getTextColor = (
 export const StatusBar: FC<StatusBarProps> = ({
   itemLeft,
   handleClearAllClick,
-  handleAllClick,
-  handleActiveClick,
-  handleCompletedClick,
+  handleTabClick,
+  currentTab,
 }) => {
   const [isMobileView, setIsMobileView] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<
-    "all" | "active" | "completed"
-  >("all");
   const { colorMode } = useColorMode();
 
   useEffect(() => {
@@ -47,23 +42,6 @@ export const StatusBar: FC<StatusBarProps> = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const handleTabClick = (tab: "all" | "active" | "completed") => {
-    setSelectedTab(tab);
-    switch (tab) {
-      case "all":
-        handleAllClick();
-        break;
-      case "active":
-        handleActiveClick();
-        break;
-      case "completed":
-        handleCompletedClick();
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <Box fontWeight={"700"} color={colorMode === "light" ? "black" : "white"}>
@@ -102,7 +80,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               onClick={() => handleTabClick("all")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(selectedTab === "all", colorMode)}
+              color={getTextColor(currentTab === "all", colorMode)}
             >
               All
             </Text>
@@ -110,7 +88,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               onClick={() => handleTabClick("active")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(selectedTab === "active", colorMode)}
+              color={getTextColor(currentTab === "active", colorMode)}
             >
               Active
             </Text>
@@ -118,7 +96,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               onClick={() => handleTabClick("completed")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(selectedTab === "completed", colorMode)}
+              color={getTextColor(currentTab === "completed", colorMode)}
             >
               Completed
             </Text>
@@ -146,7 +124,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               onClick={() => handleTabClick("all")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(selectedTab === "all", colorMode)}
+              color={getTextColor(currentTab === "all", colorMode)}
             >
               All
             </Text>
@@ -154,7 +132,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               onClick={() => handleTabClick("active")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(selectedTab === "active", colorMode)}
+              color={getTextColor(currentTab === "active", colorMode)}
             >
               Active
             </Text>
@@ -162,7 +140,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               onClick={() => handleTabClick("completed")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(selectedTab === "completed", colorMode)}
+              color={getTextColor(currentTab === "completed", colorMode)}
             >
               Completed
             </Text>
