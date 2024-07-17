@@ -2,22 +2,25 @@ import { Todo } from "./Todo.dto";
 import { TodoService } from "./TodoService";
 import { initTodoList } from "../app/lib/initTodos";
 
+export enum StorageKeys {
+  TODOS = 'todos'
+}
+
 class LocalStorageService implements TodoService {
   fetchTodos = async (): Promise<Todo[]> => {
-    const todos = localStorage.getItem("todos");
-
+    const todos = localStorage.getItem(StorageKeys.TODOS);
     return todos ? JSON.parse(todos) : [];
   };
 
   addTodo = async (todo: Todo): Promise<void> => {
     const todos = await this.fetchTodos();
     todos.push(todo);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
   };
 
   initTodos = async (): Promise<Todo[]> => {
     const todos = initTodoList;
-    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
     return todos;
   };
 
@@ -32,14 +35,14 @@ class LocalStorageService implements TodoService {
     const todo = todos.find((todo) => todo.id === id);
     if (todo) {
       todo.isCompleted = !todo.isCompleted;
-      localStorage.setItem("todos", JSON.stringify(todos));
+      localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
     }
   };
 
   deleteTodo = async (id: string): Promise<void> => {
     const todos = await this.fetchTodos();
     const updatedData = todos.filter((todo) => todo.id !== id);
-    localStorage.setItem("todos", JSON.stringify(updatedData));
+    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(updatedData));
   };
 
   countUncompletedTodo = async (): Promise<number> => {
@@ -50,7 +53,7 @@ class LocalStorageService implements TodoService {
   clearAllCompletedTodos = async (): Promise<void> => {
     const todos = await this.fetchTodos();
     const updatedData = todos.filter((todo) => !todo.isCompleted);
-    localStorage.setItem("todos", JSON.stringify(updatedData));
+    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(updatedData));
   };
 
   getActiveTodos = async (): Promise<Todo[]> => {
@@ -64,7 +67,7 @@ class LocalStorageService implements TodoService {
   };
 
   updateReOrderedTodos = async (todos: Todo[]): Promise<void> => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
   };
 }
 
