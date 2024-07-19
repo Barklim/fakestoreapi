@@ -1,6 +1,6 @@
 ## FakeStoreApi
 
-[![Netlify Status]([![Netlify Status](https://api.netlify.com/api/v1/badges/e51bf785-4c65-4182-aff9-18c5ffbf08e9/deploy-status)](https://app.netlify.com/sites/klimbarkstore/deploys))
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e51bf785-4c65-4182-aff9-18c5ffbf08e9/deploy-status)](https://app.netlify.com/sites/klimbarkstore/deploys)
 ![GitHub top language](https://img.shields.io/github/languages/top/Barklim/fakestoreapi)
 
 Simple user list of FakeStoreApi application with TypeScript, React and React Hooks.

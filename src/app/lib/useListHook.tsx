@@ -9,9 +9,8 @@ export const useListState = (initState: boolean) => {
   const [items, setItems] = useState<User[]>([]);
   const [itemLeft, setItemLeft] = useState<number>(0);
   const [itemsLoaded, setItemsLoaded] = useState(false);
-  const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">(
-    "all"
-  );
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">("all");
   const [isEditable, setEditableState] = useState(
     localStorage.getItem(StorageKeys.USER_LIST_EDITABLE) === "true"
   );
@@ -79,9 +78,7 @@ export const useListState = (initState: boolean) => {
     const newState = !isEditable;
     setEditableState(newState);
     localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, String(newState));
-    if (newState) {
-      handleAllClick();
-    }
+    handleTabClick("all")
   };
 
   const setDraggable = () => {
@@ -96,19 +93,58 @@ export const useListState = (initState: boolean) => {
     localStorage.setItem(StorageKeys.USER_LIST_ADDABLE, String(newState));
   };
 
-  const searchUsers = (query: string): void => {
+  const search = (query: string): User[] => {
     const lowerCaseQuery = query.toLowerCase();
-
+  
     const usersListLS = localStorage.getItem(StorageKeys.USER_LIST);
     const parsedUsersListLS: User[] = usersListLS ? JSON.parse(usersListLS) : [];
-
-    const filteredUsers = parsedUsersListLS.filter(
+  
+    return parsedUsersListLS.filter(
       (user) =>
         user.username.toLowerCase().includes(lowerCaseQuery) ||
         user.email.toLowerCase().includes(lowerCaseQuery) ||
         user.phone.toLowerCase().includes(lowerCaseQuery)
     );
-    setItems(filteredUsers);
+  };
+
+  const searchUsers = async (query: string): Promise<void> => {
+    setSearchQuery(query);
+    const itemsToFilter = await getItemsByTab(currentTab);
+  
+    if (query === "") {
+      setItems(itemsToFilter);
+      return;
+    }
+  
+    const filteredBySearchItems = search(query);
+    const filteredItems = itemsToFilter.filter(item =>
+      filteredBySearchItems.some(filteredItem => filteredItem.id === item.id)
+    );
+    
+    setItems(filteredItems);
+  };
+
+  const getItemsByTab = async (tab: "all" | "active" | "favorite"): Promise<User[]> => {
+    switch (tab) {
+      case "all":
+        return await fetchList();
+      case "active":
+        return await getActiveItems();
+      case "favorite":
+        return await getFavoriteItems();
+      default:
+        return [];
+    }
+  };
+
+  const handleTabClick = async (tab: "all" | "active" | "favorite") => {
+    setCurrentTab(tab);
+    const itemsToFilter = await getItemsByTab(tab);
+    const filteredBySearchItems = search(searchQuery);
+    const filteredItems = itemsToFilter.filter(item =>
+      filteredBySearchItems.some(filteredItem => filteredItem.id === item.id)
+    );
+    setItems(filteredItems);
   };
 
   const handleFavoriteItem = async (id: string) => {
@@ -135,43 +171,9 @@ export const useListState = (initState: boolean) => {
     setItems(data);
   };
 
-  const handleAllClick = async () => {
-    setCurrentTab("all");
-    const data = await fetchList();
-    setItems(data);
-  };
-
-  const handleActiveClick = async () => {
-    setCurrentTab("active");
-    const activeItems = await getActiveItems();
-    setItems(activeItems);
-  };
-
-  const handleFavoriteClick = async () => {
-    setCurrentTab("favorite");
-    const favoriteItems = await getFavoriteItems();
-    setItems(favoriteItems);
-  };
-
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       addNewItem();
-    }
-  };
-
-  const handleTabClick = (tab: "all" | "active" | "favorite") => {
-    switch (tab) {
-      case "all":
-        handleAllClick();
-        break;
-      case "active":
-        handleActiveClick();
-        break;
-      case "favorite":
-        handleFavoriteClick();
-        break;
-      default:
-        break;
     }
   };
 
@@ -195,9 +197,9 @@ export const useListState = (initState: boolean) => {
     handleDeleteItem,
     handleReset,
     handleClearAllClick,
-    handleAllClick,
-    handleActiveClick,
-    handleFavoriteClick,
+    handleAllClick: () => handleTabClick("all"),
+    handleActiveClick: () => handleTabClick("active"),
+    handleFavoriteClick: () => handleTabClick("favorite"),
     handleAddItem,
     handleTabClick,
   };
