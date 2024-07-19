@@ -24,6 +24,7 @@ interface UserListProps {
   handleDeleteItem: (id: string) => Promise<void>;
   setItems: Dispatch<SetStateAction<User[]>>;
   itemsLoaded: boolean;
+  isEditable: boolean;
 }
 
 const UserList: FC<UserListProps> = ({
@@ -32,6 +33,7 @@ const UserList: FC<UserListProps> = ({
   handleDeleteItem,
   setItems,
   itemsLoaded,
+  isEditable
 }) => {
   if (!itemsLoaded) {
     return <div>Loading...</div>;
@@ -68,11 +70,12 @@ const UserList: FC<UserListProps> = ({
                   handleFavoriteItem={handleFavoriteItem}
                   handleDeleteItem={handleDeleteItem}
                   isDragDisabled={isDragDisabled}
+                  isEditable={isEditable}
                   index={index}
                 />
               ))}
             {items.length === 0 && (
-              <Flex h={70} align={'center'} justifyContent={'center'}><div>Nothing to show :(</div></Flex>
+              <Flex h={70} align={'center'} justifyContent={'center'} borderBottom={'1px solid grey'}><div>Nothing to show :(</div></Flex>
             )}
             {provided.placeholder}
           </div>

@@ -92,7 +92,7 @@ const InputSection: React.FC<InputSectionProps> = ({
               <Checkbox width={"22px"} height={"22px"} />
             )}
           </Box>
-          <Text cursor={"pointer"}>Editable</Text>
+          <Text cursor={"pointer"} userSelect={'none'}>Editable</Text>
         </Flex>
 
         <Button

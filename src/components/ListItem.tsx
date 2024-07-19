@@ -9,12 +9,12 @@ import { TestId } from "../tests";
 
 import checkIcon from "../assets/icon-check.svg";
 import { darkBg } from "../app/styles/const";
-
 interface ListItemProps {
   item: User;
   handleFavoriteItem: (id: string) => Promise<void>;
   handleDeleteItem: (id: string) => Promise<void>;
   isDragDisabled: boolean;
+  isEditable: boolean;
   index: number;
 }
 
@@ -23,6 +23,7 @@ const ListItem: FC<ListItemProps> = ({
   handleFavoriteItem,
   handleDeleteItem,
   isDragDisabled,
+  isEditable,
   index,
 }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -62,7 +63,9 @@ const ListItem: FC<ListItemProps> = ({
             background={colorMode === "light" ? "white" : darkBg}
           >
             <Flex alignItems={"center"} minW={"100%"}>
-              <Box cursor={"pointer"} onClick={() => handleClick(item.id)}>
+              {
+                isEditable && (
+                  <Box cursor={"pointer"} onClick={() => handleClick(item.id)}>
                 {isFavorite ? (
                   <Flex
                     w="24px"
@@ -78,11 +81,15 @@ const ListItem: FC<ListItemProps> = ({
                   <Checkbox width={"22px"} height={"22px"} />
                 )}
               </Box>
+                )
+              }
+              
               <Flex ml="1em" justifyContent={"space-between"} w="100%">
                 <Text
                   data-testid={TestId.Item}
                   fontWeight={"700"}
                   fontSize={"1.2rem"}
+                  userSelect={'none'}
                   textDecoration={isFavorite ? "line-through" : "none"}
                   color={
                     isFavorite
@@ -94,7 +101,7 @@ const ListItem: FC<ListItemProps> = ({
                 >
                   {item.title}
                 </Text>
-                {isVisible && (
+                {isVisible && isEditable && (
                   <Box
                     data-testid={TestId.ItemDelete}
                     cursor="pointer"

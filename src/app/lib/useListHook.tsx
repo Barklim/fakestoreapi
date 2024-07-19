@@ -59,11 +59,11 @@ export const useListState = (initState: boolean) => {
     }
   };
 
-
   const setEditable = () => {
     if (isEditable) {
       setEditableState(false)
       localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'false')
+      handleAllClick()
     } else {
       setEditableState(true)
       localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'true')

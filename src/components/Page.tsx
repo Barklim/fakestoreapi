@@ -39,6 +39,10 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
   const editableFeatureLS = localStorage.getItem(
     StorageKeys.USER_LIST_EDITABLE
   );
+  const usersListLS = localStorage.getItem(
+    StorageKeys.USER_LIST
+  );
+  const parsedUsersListLS = usersListLS ? JSON.parse(usersListLS) : [];
 
   useEffect(() => {
     editableFeatureLS === null
@@ -86,7 +90,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
               maxH={"50vh"}
               overflowY={"auto"}
               borderTopRadius={"10px"}
-              borderBottomRadius={isEditable ? 0 : "10px"}
+              borderBottomRadius={isEditable && parsedUsersListLS.length > 0 ? 0 : "10px"}
               backgroundColor={colorMode === "light" ? "white" : darkBg}
             >
               <UserList
@@ -95,9 +99,10 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                 handleDeleteItem={handleDeleteItem}
                 setItems={setItems}
                 itemsLoaded={itemsLoaded}
+                isEditable={isEditable}
               />
             </Box>
-            {isEditable && items.length > 0 && (
+            {isEditable && parsedUsersListLS.length > 0 && (
               <StatusBar
                 itemLeft={itemLeft}
                 handleClearAllClick={handleClearAllClick}
