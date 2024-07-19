@@ -1,73 +1,73 @@
-import { Todo } from "./Todo.dto";
-import { TodoService } from "./TodoService";
-import { initTodoList } from "../app/lib/initTodos";
+import { User } from "./User.dto";
+import { ListService } from "./UserService";
+import { initList } from "../app/lib/initList";
 
 export enum StorageKeys {
-  TODOS = 'todos'
+  USER_LIST = 'user_list'
 }
 
-class LocalStorageService implements TodoService {
-  fetchTodos = async (): Promise<Todo[]> => {
-    const todos = localStorage.getItem(StorageKeys.TODOS);
-    return todos ? JSON.parse(todos) : [];
+class LocalStorageService implements ListService {
+  fetchList = async (): Promise<User[]> => {
+    const users = localStorage.getItem(StorageKeys.USER_LIST);
+    return users ? JSON.parse(users) : [];
   };
 
-  addTodo = async (todo: Todo): Promise<void> => {
-    const todos = await this.fetchTodos();
-    todos.push(todo);
-    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
+  addItem = async (user: User): Promise<void> => {
+    const users = await this.fetchList();
+    users.push(user);
+    localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(users));
   };
 
-  initTodos = async (): Promise<Todo[]> => {
-    const todos = initTodoList;
-    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
-    return todos;
+  initList = async (): Promise<User[]> => {
+    const users = initList;
+    localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(users));
+    return users;
   };
 
-  isTodoCompleted = async (id: string): Promise<boolean | undefined> => {
-    const todos = await this.fetchTodos();
-    const todo = todos.find((todo) => todo.id === id);
-    return todo?.isCompleted;
+  isItemFavorite = async (id: string): Promise<boolean | undefined> => {
+    const users = await this.fetchList();
+    const user = users.find((user) => user.id === id);
+    return user?.isFavorite;
   };
 
-  markTodoCompleted = async (id: string): Promise<void> => {
-    const todos = await this.fetchTodos();
-    const todo = todos.find((todo) => todo.id === id);
-    if (todo) {
-      todo.isCompleted = !todo.isCompleted;
-      localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
+  markItemFavorite = async (id: string): Promise<void> => {
+    const users = await this.fetchList();
+    const user = users.find((user) => user.id === id);
+    if (user) {
+      user.isFavorite = !user.isFavorite;
+      localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(users));
     }
   };
 
-  deleteTodo = async (id: string): Promise<void> => {
-    const todos = await this.fetchTodos();
-    const updatedData = todos.filter((todo) => todo.id !== id);
-    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(updatedData));
+  deleteItem = async (id: string): Promise<void> => {
+    const users = await this.fetchList();
+    const updatedData = users.filter((user) => user.id !== id);
+    localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(updatedData));
   };
 
-  countUncompletedTodo = async (): Promise<number> => {
-    const todos = await this.fetchTodos();
-    return todos.filter((todo) => !todo.isCompleted).length;
+  countUnfavoriteItem = async (): Promise<number> => {
+    const users = await this.fetchList();
+    return users.filter((user) => !user.isFavorite).length;
   };
 
-  clearAllCompletedTodos = async (): Promise<void> => {
-    const todos = await this.fetchTodos();
-    const updatedData = todos.filter((todo) => !todo.isCompleted);
-    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(updatedData));
+  clearAllFavoriteList = async (): Promise<void> => {
+    const users = await this.fetchList();
+    const updatedData = users.filter((user) => !user.isFavorite);
+    localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(updatedData));
   };
 
-  getActiveTodos = async (): Promise<Todo[]> => {
-    const todos = await this.fetchTodos();
-    return todos.filter((todo) => !todo.isCompleted);
+  getActiveItems = async (): Promise<User[]> => {
+    const users = await this.fetchList();
+    return users.filter((user) => !user.isFavorite);
   };
 
-  getCompletedTodos = async (): Promise<Todo[]> => {
-    const todos = await this.fetchTodos();
-    return todos.filter((todo) => todo.isCompleted);
+  getFavoriteItems = async (): Promise<User[]> => {
+    const users = await this.fetchList();
+    return users.filter((user) => user.isFavorite);
   };
 
-  updateReOrderedTodos = async (todos: Todo[]): Promise<void> => {
-    localStorage.setItem(StorageKeys.TODOS, JSON.stringify(todos));
+  updateReOrderedItems = async (users: User[]): Promise<void> => {
+    localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(users));
   };
 }
 

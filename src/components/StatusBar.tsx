@@ -5,8 +5,8 @@ import { TestId } from "../tests";
 interface StatusBarProps {
   itemLeft: number;
   handleClearAllClick: () => Promise<void>;
-  handleTabClick: (tab: "all" | "active" | "completed") => void;
-  currentTab: "all" | "active" | "completed";
+  handleTabClick: (tab: "all" | "active" | "favorite") => void;
+  currentTab: "all" | "active" | "favorite";
 }
 
 const getTextColor = (
@@ -64,7 +64,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
             >
-              Clear Completed
+              Clear Favorite
             </Text>
           </Flex>
           <Box h="2em" minW={"100%"} backgroundColor={"#242424"}></Box>
@@ -93,12 +93,12 @@ export const StatusBar: FC<StatusBarProps> = ({
               Active
             </Text>
             <Text
-              onClick={() => handleTabClick("completed")}
+              onClick={() => handleTabClick("favorite")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(currentTab === "completed", colorMode)}
+              color={getTextColor(currentTab === "favorite", colorMode)}
             >
-              Completed
+              Favorite
             </Text>
           </Flex>
         </Flex>
@@ -137,12 +137,12 @@ export const StatusBar: FC<StatusBarProps> = ({
               Active
             </Text>
             <Text
-              onClick={() => handleTabClick("completed")}
+              onClick={() => handleTabClick("favorite")}
               cursor={"pointer"}
               _hover={{ color: colorMode === "light" ? "black" : "white" }}
-              color={getTextColor(currentTab === "completed", colorMode)}
+              color={getTextColor(currentTab === "favorite", colorMode)}
             >
-              Completed
+              Favorite
             </Text>
           </Flex>
           <Text
@@ -151,7 +151,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             cursor={"pointer"}
             _hover={{ color: colorMode === "light" ? "black" : "white" }}
           >
-            Clear Completed
+            Clear Favorite
           </Text>
         </Flex>
       )}

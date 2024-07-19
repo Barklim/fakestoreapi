@@ -4,11 +4,14 @@ Simple user list of FakeStoreApi application with TypeScript, React and React Ho
 
 - Client - [vercel](https://todos-swart-eight.vercel.app/)
 - json-server - [vercel](https://todo-list-json-server-hnyxyyqsa-klim-barks-projects.vercel.app/)
+- api - [FakeStoreApi](https://fakestoreapi.com/)
 
 ## Run application
 
+install dependencies and run application
+
 ```
-npm i && npm run start - install dependencies and run application
+npm i && npm run start
 ```
 
 ## Scripts
@@ -31,6 +34,8 @@ Make sure you have the following installed
 
 ## Todo
 
+- create transform class for user entity to user item list
+- classical architecture to module
 - add some styled scss
 - migrate from vite to webpack, vitest to jest
 - handleclick usecallback?

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, FC, ReactNode } from 'react';
 
-type Tab = 'all' | 'active' | 'completed';
+type Tab = 'all' | 'active' | 'favorite';
 
 interface ContextProviderProps {
   currentTab: Tab;

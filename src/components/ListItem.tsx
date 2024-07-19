@@ -4,45 +4,45 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Draggable } from "react-beautiful-dnd";
 import Checkbox from "./Checkbox";
 import service from "../services";
-import { Todo } from "../services/Todo.dto";
+import { User } from "../services/User.dto";
 import { TestId } from "../tests";
 
 import checkIcon from "../assets/icon-check.svg";
 
-interface TodoItemProps {
-  todo: Todo;
-  handleCompletedTodo: (id: string) => Promise<void>;
-  handleDeleteTodo: (id: string) => Promise<void>;
+interface ListItemProps {
+  item: User;
+  handleFavoriteItem: (id: string) => Promise<void>;
+  handleDeleteItem: (id: string) => Promise<void>;
   isDragDisabled: boolean;
   index: number;
 }
 
-const TodoItem: FC<TodoItemProps> = ({
-  todo,
-  handleCompletedTodo,
-  handleDeleteTodo,
+const ListItem: FC<ListItemProps> = ({
+  item,
+  handleFavoriteItem,
+  handleDeleteItem,
   isDragDisabled,
   index,
 }) => {
-  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
   const { colorMode } = useColorMode();
-  const { isTodoCompleted } = service;
+  const { isItemFavorite } = service;
 
   const handleClick = async (id: string) => {
-    await handleCompletedTodo(id);
-    setIsCompleted((await isTodoCompleted(id)) || false);
+    await handleFavoriteItem(id);
+    setIsFavorite((await isItemFavorite(id)) || false);
   };
 
   useEffect(() => {
-    isTodoCompleted(todo.id).then((data) => {
-      setIsCompleted(data || false);
+    isItemFavorite(item.id).then((data) => {
+      setIsFavorite(data || false);
     });
-  }, [todo.id]);
+  }, [item.id]);
 
   return (
     <Draggable
-      draggableId={todo.id}
+      draggableId={item.id}
       index={index}
       isDragDisabled={isDragDisabled}
     >
@@ -61,8 +61,8 @@ const TodoItem: FC<TodoItemProps> = ({
             background={colorMode === "light" ? "white" : "#1a202c"}
           >
             <Flex alignItems={"center"} minW={"100%"}>
-              <Box cursor={"pointer"} onClick={() => handleClick(todo.id)}>
-                {isCompleted ? (
+              <Box cursor={"pointer"} onClick={() => handleClick(item.id)}>
+                {isFavorite ? (
                   <Flex
                     w="24px"
                     h="24px"
@@ -79,25 +79,25 @@ const TodoItem: FC<TodoItemProps> = ({
               </Box>
               <Flex ml="1em" justifyContent={"space-between"} w="100%">
                 <Text
-                  data-testid={TestId.Todoitem}
+                  data-testid={TestId.Item}
                   fontWeight={"700"}
                   fontSize={"1.2rem"}
-                  textDecoration={isCompleted ? "line-through" : "none"}
+                  textDecoration={isFavorite ? "line-through" : "none"}
                   color={
-                    isCompleted
+                    isFavorite
                       ? "grey"
                       : colorMode === "light"
                         ? "black"
                         : "white"
                   }
                 >
-                  {todo.title}
+                  {item.title}
                 </Text>
                 {isVisible && (
                   <Box
-                    data-testid={TestId.TodoItemDelete}
+                    data-testid={TestId.ItemDelete}
                     cursor="pointer"
-                    onClick={() => handleDeleteTodo(todo.id)}
+                    onClick={() => handleDeleteItem(item.id)}
                   >
                     <CloseIcon />
                   </Box>
@@ -111,4 +111,4 @@ const TodoItem: FC<TodoItemProps> = ({
   );
 };
 
-export default TodoItem;
+export default ListItem;

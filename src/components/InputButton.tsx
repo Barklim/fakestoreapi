@@ -11,12 +11,12 @@ import arrowDownIcon from "../assets/arrow-down.svg";
 import { TestId } from "../tests";
 
 interface InputButtonProps {
-  todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
-  addTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  item: string;
+  setItem: React.Dispatch<React.SetStateAction<string>>;
+  addItem: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const InputButton: FC<InputButtonProps> = ({ todo, setTodo, addTodo }) => {
+const InputButton: FC<InputButtonProps> = ({ item, setItem, addItem }) => {
   const { colorMode } = useColorMode();
   return (
     <Flex
@@ -46,9 +46,9 @@ const InputButton: FC<InputButtonProps> = ({ todo, setTodo, addTodo }) => {
           variant={"unstyled"}
           placeholder="What needs to be done?"
           ml={".5em"}
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
-          onKeyDown={addTodo}
+          value={item}
+          onChange={(e) => setItem(e.target.value)}
+          onKeyDown={addItem}
         />
       </InputGroup>
     </Flex>

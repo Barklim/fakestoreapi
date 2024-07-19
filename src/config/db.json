@@ -1,20 +1,20 @@
 {
   "data": {
-    "todos": [
+    "list": [
       {
         "id": "4cf46f99-62aa-44e1-ae20-366202482c75",
-        "title": "Тестовое задание",
-        "isCompleted": false
+        "title": "johnd",
+        "isFavorite": false
       },
       {
         "id": "ab93a188-272d-4379-bd88-18a0fc3464d6",
-        "title": "Прекрасный код",
-        "isCompleted": true
+        "title": "mor_2314",
+        "isFavorite": true
       },
       {
         "id": "d98db193-1bf6-42d6-8a52-8c9648bae504",
-        "title": "Покрытие тестами",
-        "isCompleted": false
+        "title": "kevinryan",
+        "isFavorite": false
       }
     ]
   }

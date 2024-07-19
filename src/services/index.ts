@@ -1,7 +1,7 @@
 import { USE_API } from "../config";
-import { TodoService } from "./TodoService";
+import { ListService } from "./UserService";
 import ApiService from "./ApiService";
 import LocalStorageService from "./LocalStorageService";
 
-const service: TodoService = USE_API ? new ApiService() : new LocalStorageService();
+const service: ListService = USE_API ? new ApiService() : new LocalStorageService();
 export default service;

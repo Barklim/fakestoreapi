@@ -10,17 +10,17 @@ import InputButton from "./InputButton";
 import { TestId } from "../tests";
 
 interface InputSectionProps {
-  addNewTodo: () => void;
-  todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleAddTodo: (e: KeyboardEvent<HTMLInputElement>) => void;
+  addNewItem: () => void;
+  item: string;
+  setItem: React.Dispatch<React.SetStateAction<string>>;
+  handleAddItem: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputSection: React.FC<InputSectionProps> = ({
-  addNewTodo,
-  todo,
-  setTodo,
-  handleAddTodo,
+  addNewItem,
+  item,
+  setItem,
+  handleAddItem,
 }) => {
   const { colorMode } = useColorMode();
   return (
@@ -31,13 +31,13 @@ const InputSection: React.FC<InputSectionProps> = ({
         alignItems={"center"}
         w={"100%"}
       >
-        <InputButton todo={todo} setTodo={setTodo} addTodo={handleAddTodo} />
+        <InputButton item={item} setItem={setItem} addItem={handleAddItem} />
         <Button
           data-testid={TestId.ButtonAdd}
           background={colorMode === "light" ? "white" : "#1a202c"}
           h={"3.5em"}
           w={"6em"}
-          onClick={addNewTodo}
+          onClick={addNewItem}
           _hover={
             colorMode === "light" ? undefined : ("none" as SystemStyleObject)
           }

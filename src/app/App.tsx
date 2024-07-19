@@ -1,9 +1,9 @@
 import "./styles/App.css";
-import { INIT_TODOS } from "../config";
-import Todo from "../components/Todo";
+import { INIT_LIST } from "../config";
+import Page from "../components/Page";
 
 function App() {
-  return <Todo initState={INIT_TODOS}></Todo>;
+  return <Page initState={INIT_LIST} />;
 }
 
 export default App;

@@ -1,19 +1,19 @@
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import Todo from "../components/Todo";
+import UsersPage from "../components/Page";
 import { TestId } from ".";
 
-const todoItemText = "Some todo";
+const itemText = "Some item list";
 
 describe("StatusBar", () => {
 
-  it("add completed todo", async () => {
-    render(<Todo />);
+  it("add favorite user item", async () => {
+    render(<UsersPage />);
 
     const inputButton = screen.getByPlaceholderText("What needs to be done?");
     fireEvent.change(inputButton, {
-      target: { value: todoItemText },
+      target: { value: itemText },
     });
     const buttonAdd = screen.getByTestId(TestId.ButtonAdd);
 
@@ -23,24 +23,24 @@ describe("StatusBar", () => {
     await userEvent.click(Checkbox);
 
     expect(
-        getComputedStyle(screen.getByText(todoItemText)).textDecoration
+        getComputedStyle(screen.getByText(itemText)).textDecoration
       ).toBe("line-through");
   });
 
-  it("clear completed todo", async () => {
-    render(<Todo />);
+  it("clear favorite user item", async () => {
+    render(<UsersPage />);
 
     const buttonAdd = screen.getByTestId(TestId.ButtonAdd);
     await userEvent.click(buttonAdd);
 
-    const Todoitem = screen.getByText(todoItemText);
+    const item = screen.getByText(itemText);
 
-    expect(Todoitem).not.toBe(null);
+    expect(item).not.toBe(null);
 
     const buttonStatusClear = screen.getByTestId(TestId.StatusBarClear);
     await userEvent.click(buttonStatusClear);
 
-    expect(screen.queryByText(todoItemText)).toBe(null);
+    expect(screen.queryByText(itemText)).toBe(null);
 
     screen.debug();
   });

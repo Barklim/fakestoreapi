@@ -1,57 +1,57 @@
 import { FC, Dispatch, SetStateAction } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { Todo } from "../services/Todo.dto";
-import TodoItem from "./TodoItem";
+import { User } from "../services/User.dto";
+import ListItem from "./ListItem";
 import service from "../services";
 import StrictModeDroppable from "./StrictModeDroppable";
 import { v4 } from "uuid";
 
 const reorder = (
-  list: Todo[],
+  list: User[],
   startIndex: number,
   endIndex: number
-): Todo[] => {
+): User[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
   return result;
 };
 
-interface TodoListProps {
-  todos: Todo[];
-  handleCompletedTodo: (id: string) => Promise<void>;
-  handleDeleteTodo: (id: string) => Promise<void>;
-  setTodos: Dispatch<SetStateAction<Todo[]>>;
-  todosLoaded: boolean;
+interface UserListProps {
+  items: User[];
+  handleFavoriteItem: (id: string) => Promise<void>;
+  handleDeleteItem: (id: string) => Promise<void>;
+  setItems: Dispatch<SetStateAction<User[]>>;
+  itemsLoaded: boolean;
 }
 
-const TodoList: FC<TodoListProps> = ({
-  todos,
-  handleCompletedTodo,
-  handleDeleteTodo,
-  setTodos,
-  todosLoaded,
+const UserList: FC<UserListProps> = ({
+  items,
+  handleFavoriteItem,
+  handleDeleteItem,
+  setItems,
+  itemsLoaded,
 }) => {
-  if (!todosLoaded) {
+  if (!itemsLoaded) {
     return <div>Loading...</div>;
   }
 
-  const isDragDisabled = todos.length === 1;
-  const { updateReOrderedTodos } = service;
+  const isDragDisabled = items.length === 1;
+  const { updateReOrderedItems } = service;
 
   const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
 
     if (result.destination.index === result.source.index) return;
 
-    const updatedTodos = reorder(
-      todos,
+    const updatedItems = reorder(
+      items,
       result.source.index,
       result.destination.index
     );
 
-    setTodos(updatedTodos);
-    await updateReOrderedTodos(updatedTodos);
+    setItems(updatedItems);
+    await updateReOrderedItems(updatedItems);
   };
 
   return (
@@ -59,13 +59,13 @@ const TodoList: FC<TodoListProps> = ({
       <StrictModeDroppable droppableId={v4()}>
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            {todos.length > 0 &&
-              todos.map((todo, index) => (
-                <TodoItem
-                  key={todo.id}
-                  todo={todo}
-                  handleCompletedTodo={handleCompletedTodo}
-                  handleDeleteTodo={handleDeleteTodo}
+            {items.length > 0 &&
+              items.map((item, index) => (
+                <ListItem
+                  key={item.id}
+                  item={item}
+                  handleFavoriteItem={handleFavoriteItem}
+                  handleDeleteItem={handleDeleteItem}
                   isDragDisabled={isDragDisabled}
                   index={index}
                 />
@@ -78,4 +78,4 @@ const TodoList: FC<TodoListProps> = ({
   );
 };
 
-export default TodoList;
+export default UserList;

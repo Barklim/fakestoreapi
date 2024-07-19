@@ -1,79 +1,79 @@
 import axios from "axios";
 import { API_URL, getApiUrl } from "../config";
-import { Todo, TodosResponse } from "./Todo.dto";
-import { TodoService } from "./TodoService";
-import { initTodoList } from "../app/lib/initTodos";
+import { User, UsersResponse } from "./User.dto";
+import { ListService } from "./UserService";
+import { initList } from "../app/lib/initList";
 
 const url = getApiUrl()
 
-class ApiService implements TodoService {
-  async fetchTodos(): Promise<Todo[]> {
-    const { data } = await axios.get<TodosResponse>(`${url}/data`);
-    return data.todos as Todo[];
+class ApiService implements ListService {
+  async fetchList(): Promise<User[]> {
+    const { data } = await axios.get<UsersResponse>(`${url}/data`);
+    return data.users as User[];
   }
 
-  async addTodo(todo: Todo): Promise<void> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    const newData: Todo[] = [todo, ...todos];
-    await axios.post(`${API_URL}/data`, { todos: newData });
+  async addItem(user: User): Promise<void> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    const newData: User[] = [user, ...users];
+    await axios.post(`${API_URL}/data`, { users: newData });
   }
 
-  initTodos = async (): Promise<Todo[]> => {
-    const todos = initTodoList;
-    return await axios.post(`${API_URL}/data`, { todos: todos });
+  initList = async (): Promise<User[]> => {
+    const users = initList;
+    return await axios.post(`${API_URL}/data`, { users: users });
   };
 
-  async isTodoCompleted(id: string): Promise<boolean | undefined> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    const todo = todos.find((todo) => todo.id === id);
-    return todo?.isCompleted;
+  async isItemFavorite(id: string): Promise<boolean | undefined> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    const user = users.find((user) => user.id === id);
+    return user?.isFavorite;
   }
 
-  async markTodoCompleted(id: string): Promise<void> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    todos.forEach((todo) => {
-      if (todo.id === id) todo.isCompleted = !todo.isCompleted;
+  async markItemFavorite(id: string): Promise<void> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    users.forEach((user) => {
+      if (user.id === id) user.isFavorite = !user.isFavorite;
     });
-    await axios.post(`${API_URL}/data`, { todos });
+    await axios.post(`${API_URL}/data`, { users });
   }
 
-  async deleteTodo(id: string): Promise<void> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    const updatedData = todos.filter((todo) => todo.id !== id);
-    await axios.post(`${API_URL}/data`, { todos: updatedData });
+  async deleteItem(id: string): Promise<void> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    const updatedData = users.filter((user) => user.id !== id);
+    await axios.post(`${API_URL}/data`, { users: updatedData });
   }
 
-  async countUncompletedTodo(): Promise<number> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    return todos.filter((todo) => !todo.isCompleted).length;
+  async countUnfavoriteItem(): Promise<number> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    return users.filter((user) => !user.isFavorite).length;
   }
 
-  async clearAllCompletedTodos(): Promise<void> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    const updatedData = todos.filter((todo) => !todo.isCompleted);
-    await axios.put(`${API_URL}/data`, { todos: updatedData });
+  async clearAllFavoriteList(): Promise<void> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    const updatedData = users.filter((user) => !user.isFavorite);
+    await axios.put(`${API_URL}/data`, { users: updatedData });
   }
 
-  async getActiveTodos(): Promise<Todo[]> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    return todos.filter((todo) => !todo.isCompleted);
+  async getActiveItems(): Promise<User[]> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    return users.filter((user) => !user.isFavorite);
   }
 
-  async getCompletedTodos(): Promise<Todo[]> {
-    const { data } = await axios.get<TodosResponse>(`${API_URL}/data`);
-    const todos: Todo[] = data.todos as Todo[];
-    return todos.filter((todo) => todo.isCompleted);
+  async getFavoriteItems(): Promise<User[]> {
+    const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
+    const users: User[] = data.users as User[];
+    return users.filter((user) => user.isFavorite);
   }
 
-  async updateReOrderedTodos(todos: Todo[]): Promise<void> {
-    await axios.put(`${API_URL}/data`, { todos });
+  async updateReOrderedItems(users: User[]): Promise<void> {
+    await axios.put(`${API_URL}/data`, { users });
   }
 }
 

@@ -1,33 +1,33 @@
 import { Box, useColorMode, Flex, Text } from "@chakra-ui/react";
-import Header from "../components/Header";
+import Header from "./Header";
 import lightBgImage from "../assets/bg_desktop_light.png";
-import darkBgImage from "../assets/bg_desktop_dark.jpeg";
-import TodoList from "../components/TodoList";
-import { StatusBar } from "../components/StatusBar";
-import ThemeSwithcer from "../components/ThemeSwither";
-import InputSection from "../components/InputSection";
-import { useTodoState } from "../app/lib/useTodoHook";
+import darkBgImage from "../assets/bg_desktop_dark.png";
+import UserList from "./UserList";
+import { StatusBar } from "./StatusBar";
+import ThemeSwithcer from "./ThemeSwither";
+import InputSection from "./InputSection";
+import { useListState } from "../app/lib/useListHook";
 
-interface TodoProps {
+interface PageProps {
   initState?: boolean;
 }
-const Todo: React.FC<TodoProps> = ({ initState = false }) => {
+const Page: React.FC<PageProps> = ({ initState = false }) => {
   const { colorMode } = useColorMode();
   const {
-    todo,
-    setTodo,
-    setTodos,
-    todos,
+    item,
+    setItem,
+    setItems,
+    items,
     itemLeft,
-    todosLoaded,
-    addNewTodo,
-    handleCompletedTodo,
-    handleDeleteTodo,
+    itemsLoaded,
+    addNewItem,
+    handleFavoriteItem,
+    handleDeleteItem,
     handleClearAllClick,
-    handleAddTodo,
+    handleAddItem,
     currentTab,
     handleTabClick,
-  } = useTodoState(initState);
+  } = useListState(initState);
 
   return (
     <>
@@ -43,10 +43,10 @@ const Todo: React.FC<TodoProps> = ({ initState = false }) => {
         <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="4em 0" m="auto">
           <Header />
           <InputSection
-            addNewTodo={addNewTodo}
-            todo={todo}
-            setTodo={setTodo}
-            handleAddTodo={handleAddTodo}
+            addNewItem={addNewItem}
+            item={item}
+            setItem={setItem}
+            handleAddItem={handleAddItem}
           />
         </Box>
       </Box>
@@ -65,12 +65,12 @@ const Todo: React.FC<TodoProps> = ({ initState = false }) => {
               borderTopRadius={"10px"}
               backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
             >
-              <TodoList
-                todos={todos}
-                handleCompletedTodo={handleCompletedTodo}
-                handleDeleteTodo={handleDeleteTodo}
-                setTodos={setTodos}
-                todosLoaded={todosLoaded}
+              <UserList
+                items={items}
+                handleFavoriteItem={handleFavoriteItem}
+                handleDeleteItem={handleDeleteItem}
+                setItems={setItems}
+                itemsLoaded={itemsLoaded}
               />
             </Box>
             <StatusBar
@@ -96,4 +96,4 @@ const Todo: React.FC<TodoProps> = ({ initState = false }) => {
   );
 };
 
-export default Todo;
+export default Page;

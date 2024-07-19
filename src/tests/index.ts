@@ -5,10 +5,10 @@ export enum TestId {
     InputButton = "InputButton",
     ButtonAdd = "ButtonAdd",
     StatusBarClear = "StatusBarClear", 
-    Todoitem = "Todoitem",
-    TodoItemDelete = "TodoItemDelete"
+    Item = "Item",
+    ItemDelete = "ItemDelete"
 }
 
 export const cleanup = () => {
-    localStorage.removeItem(StorageKeys.TODOS);
+    localStorage.removeItem(StorageKeys.USER_LIST);
 };
