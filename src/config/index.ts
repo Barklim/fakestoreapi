@@ -1,5 +1,6 @@
 const PROD_API_URL = 'https://todo-list-json-server-hnyxyyqsa-klim-barks-projects.vercel.app';
 const DEV_API_URL = 'http://localhost:3000';
+export const FAKESTORE_API_URL = 'https://fakestoreapi.com/users';
 
 export const USE_API = false;
 

@@ -46,7 +46,7 @@ const InputButton: FC<InputButtonProps> = ({ item, setItem, addItem }) => {
           w="100%"
           variant={"unstyled"}
           userSelect={'none'}
-          placeholder="What needs to be done?"
+          placeholder="Who needs to be add ?"
           ml={".5em"}
           value={item}
           onChange={(e) => setItem(e.target.value)}

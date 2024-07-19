@@ -4,9 +4,11 @@ import { v4 } from "uuid";
 const list = initListDb.data?.list || [];
 
 export const initList = list.map(
-  (item: { title: string; isFavorite: boolean }) => ({
+  (item: { username: string; email: string; phone: string; isFavorite: boolean, }) => ({
     id: v4(),
-    title: item.title,
+    username: item.username,
+    email: item.email,
+    phone: item.phone,
     isFavorite: item.isFavorite,
   })
 );

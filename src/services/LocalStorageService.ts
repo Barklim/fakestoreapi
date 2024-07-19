@@ -1,6 +1,7 @@
 import { User } from "./User.dto";
 import { ListService } from "./UserService";
 import { initList } from "../app/lib/initList";
+import { FAKESTORE_API_URL } from "../config";
 
 export enum StorageKeys {
   USER_LIST = 'user_list',
@@ -21,7 +22,16 @@ class LocalStorageService implements ListService {
   };
 
   initList = async (): Promise<User[]> => {
-    const users = initList;
+    const response = await fetch(FAKESTORE_API_URL);
+    const data = await response.json();
+    
+    const users = data.slice(0, 9).map((user: any) => ({
+      id: String(user.id),
+      username: user.username,
+      phone: user.phone,
+      email: user.email,
+    }));
+
     localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(users));
     return users;
   };

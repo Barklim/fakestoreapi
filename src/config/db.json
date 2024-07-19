@@ -3,17 +3,72 @@
     "list": [
       {
         "id": "4cf46f99-62aa-44e1-ae20-366202482c75",
-        "title": "johnd",
+        "username": "johnd",
+        "email": "john@gmail.com",
+        "phone": "1-570-236-7033",
         "isFavorite": false
       },
       {
         "id": "ab93a188-272d-4379-bd88-18a0fc3464d6",
-        "title": "mor_2314",
+        "username": "mor_2314",
+        "email": "morrison@gmail.com",
+        "phone": "1-570-236-7033",
         "isFavorite": true
       },
       {
-        "id": "d98db193-1bf6-42d6-8a52-8c9648bae504",
-        "title": "kevinryan",
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae500",
+        "username": "kevinryan",
+        "email": "kevin@gmail.com",
+        "phone": "1-567-094-1345",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae501",
+        "username": "donero",
+        "email": "don@gmail.com",
+        "phone": "1-765-789-6734",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae502",
+        "username": "derek",
+        "email": "derek@gmail.com",
+        "phone": "1-956-001-1945",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae5013",
+        "username": "derek",
+        "email": "derek@gmail.com",
+        "phone": "1-956-001-1945",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae5014",
+        "username": "david_r",
+        "email": "david_r@gmail.com",
+        "phone": "1-678-345-9856",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae5015",
+        "username": "snyder",
+        "email": "miriam@gmail.com",
+        "phone": "1-123-943-0563",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae5016",
+        "username": "hopkins",
+        "email": "william@gmail.com",
+        "phone": "1-478-001-0890",
+        "isFavorite": false
+      },
+      {
+        "id": "d98db193-1bf6-42d6-8a52-8c9648bae5017",
+        "username": "kate_h",
+        "email": "kate@gmail.com",
+        "phone": "1-678-456-1934",
         "isFavorite": false
       }
     ]

@@ -50,7 +50,9 @@ export const useListState = (initState: boolean) => {
     if (item) {
       const newItem = {
         id: v4(),
-        title: item,
+        username: item,
+        email: 'example.com',
+        phone: '1-570-236-7033',
         isFavorite: false,
       };
 

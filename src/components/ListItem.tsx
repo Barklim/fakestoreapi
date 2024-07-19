@@ -58,51 +58,101 @@ const ListItem: FC<ListItemProps> = ({
         >
           <Flex
             p="1.1em"
-            h="4.4em"
+            // h="4.4em"
             borderBottom="1px solid grey"
             onMouseEnter={() => setIsVisible(true)}
             onMouseLeave={() => setIsVisible(false)}
             background={colorMode === "light" ? "white" : darkBg}
           >
             <Flex alignItems={"center"} minW={"100%"}>
-              {
-                isEditable && (
-                  <Box cursor={"pointer"} onClick={() => handleClick(item.id)}>
-                {isFavorite ? (
-                  <Flex
-                    w="24px"
-                    h="24px"
-                    borderRadius={"50%"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    background={"green"}
-                  >
-                    <Image src={checkIcon} />
-                  </Flex>
-                ) : (
-                  <Checkbox width={"22px"} height={"22px"} />
-                )}
-              </Box>
-                )
-              }
-              
+              {isEditable && (
+                <Box cursor={"pointer"} onClick={() => handleClick(item.id)}>
+                  {isFavorite ? (
+                    <Flex
+                      w="24px"
+                      h="24px"
+                      borderRadius={"50%"}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                      background={"green"}
+                    >
+                      <Image src={checkIcon} />
+                    </Flex>
+                  ) : (
+                    <Checkbox width={"22px"} height={"22px"} />
+                  )}
+                </Box>
+              )}
+
               <Flex ml="1em" justifyContent={"space-between"} w="100%">
-                <Text
-                  data-testid={TestId.Item}
-                  fontWeight={"700"}
-                  fontSize={"1.2rem"}
-                  userSelect={'none'}
-                  textDecoration={isFavorite ? "line-through" : "none"}
-                  color={
-                    isFavorite
-                      ? "grey"
-                      : colorMode === "light"
-                        ? "black"
-                        : "white"
-                  }
-                >
-                  {item.title}
-                </Text>
+                <Flex ml="1em" gap={"1em"} justifyContent={'space-between'} overflow={'hidden'} flexWrap={'wrap'} w='calc(100% - 44px)'>
+                  <Text
+                    data-testid={TestId.Item}
+                    fontWeight={"700"}
+                    fontSize={"1.2rem"}
+                    maxHeight={30}
+
+                    textAlign={'left'}
+                    w='15%'
+                    whiteSpace={'nowrap'}
+                    textOverflow={'ellipsis'}
+                    overflow={'hidden'}
+                    
+                    userSelect={"none"}
+                    textDecoration={isFavorite ? "underline" : "none"}
+                    color={
+                      isFavorite
+                        ? "grey"
+                        : colorMode === "light"
+                          ? "black"
+                          : "white"
+                    }
+                  >
+                    {item.username}
+                  </Text>
+                  <Text
+                    data-testid={TestId.Item}
+                    fontWeight={"700"}
+                    fontSize={"1.2rem"}
+                    maxHeight={30}
+
+                    textAlign={'left'}
+                    w='35%'
+                    whiteSpace={'nowrap'}
+                    textOverflow={'ellipsis'}
+                    overflow={'hidden'}
+
+                    userSelect={"none"}
+                    textDecoration={isFavorite ? "underline" : "none"}
+                    color={
+                      isFavorite
+                        ? "grey"
+                        : colorMode === "light"
+                          ? "black"
+                          : "white"
+                    }
+                  >
+                    {item.email}
+                  </Text>
+
+                  <Text
+                    data-testid={TestId.Item}
+                    fontWeight={"700"}
+                    fontSize={"1.2rem"}
+                    maxHeight={30}
+                    userSelect={"none"}
+                    textDecoration={isFavorite ? "underline" : "none"}
+                    color={
+                      isFavorite
+                        ? "grey"
+                        : colorMode === "light"
+                          ? "black"
+                          : "white"
+                    }
+                  >
+                    {item.phone}
+                  </Text>
+                </Flex>
                 {isVisible && isEditable && (
                   <Box
                     data-testid={TestId.ItemDelete}

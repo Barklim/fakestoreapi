@@ -1,6 +1,8 @@
 export interface User {
   id: string;
-  title: string;
+  username: string;
+  email: string;
+  phone: string;
   isFavorite: boolean;
 }
 

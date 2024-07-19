@@ -71,23 +71,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
         h={"40vh"}
         w={"100%"}
         p={0}
-      >
-        <ThemeSwithcer />
-        <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="0 0" m="auto">
-          <Header />
-          <InputSection
-            addNewItem={addNewItem}
-            item={item}
-            setItem={setItem}
-            handleAddItem={handleAddItem}
-            handleReset={handleReset}
-            isEditable={isEditable}
-            setEditable={setEditable}
-            isDraggable={isDraggable}
-            setDraggable={setDraggable}
-          />
-        </Box>
-      </Box>
+      ></Box>
 
       <Box
         h={"60vh"}
@@ -95,48 +79,71 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
         background={"#242424"}
         position={"relative"}
       >
-        <Box minW={"100%"} m={"auto"} position={"absolute"} top={"-74"}>
-          <Box w={{ base: "80%", md: "60%", lg: "40%" }} m={"auto"}>
-            <Box
-              maxH={"50vh"}
-              overflowY={"auto"}
-              borderTopRadius={"10px"}
-              borderBottomRadius={
-                isEditable && parsedUsersListLS.length > 0 ? 0 : "10px"
-              }
-              backgroundColor={colorMode === "light" ? "white" : darkBg}
-            >
-              <UserList
-                items={items}
-                handleFavoriteItem={handleFavoriteItem}
-                handleDeleteItem={handleDeleteItem}
-                setItems={setItems}
-                itemsLoaded={itemsLoaded}
-                isEditable={isEditable}
-                isDraggable={isDraggable}
-              />
+        <Box position={"relative"} top={"-40vh"}>
+          <ThemeSwithcer />
+          <Box
+            w={{ base: "80%", md: "60%", lg: "40%" }}
+            p="0 0"
+            m="auto"
+            marginBottom="1.4em"
+          >
+            <Header />
+            <InputSection
+              addNewItem={addNewItem}
+              item={item}
+              setItem={setItem}
+              handleAddItem={handleAddItem}
+              handleReset={handleReset}
+              isEditable={isEditable}
+              setEditable={setEditable}
+              isDraggable={isDraggable}
+              setDraggable={setDraggable}
+            />
+          </Box>
+
+          <Box minW={"100%"} m={"auto"} position={"absolute"}>
+            <Box w={{ base: "80%", md: "60%", lg: "40%" }} m={"auto"}>
+              <Box
+                maxH={"50vh"}
+                overflowY={"auto"}
+                borderTopRadius={"10px"}
+                borderBottomRadius={
+                  isEditable && parsedUsersListLS.length > 0 ? 0 : "10px"
+                }
+                backgroundColor={colorMode === "light" ? "white" : darkBg}
+              >
+                <UserList
+                  items={items}
+                  handleFavoriteItem={handleFavoriteItem}
+                  handleDeleteItem={handleDeleteItem}
+                  setItems={setItems}
+                  itemsLoaded={itemsLoaded}
+                  isEditable={isEditable}
+                  isDraggable={isDraggable}
+                />
+              </Box>
+              {isEditable && parsedUsersListLS.length > 0 && (
+                <StatusBar
+                  itemLeft={itemLeft}
+                  handleClearAllClick={handleClearAllClick}
+                  currentTab={currentTab}
+                  handleTabClick={handleTabClick}
+                />
+              )}
             </Box>
-            {isEditable && parsedUsersListLS.length > 0 && (
-              <StatusBar
-                itemLeft={itemLeft}
-                handleClearAllClick={handleClearAllClick}
-                currentTab={currentTab}
-                handleTabClick={handleTabClick}
-              />
+            {isDraggable && parsedUsersListLS.length > 1 && (
+              <Flex
+                justifyContent={"center"}
+                alignItems={"center"}
+                color={"grey"}
+                fontWeight={"700"}
+                fontSize={"large"}
+                mt={"10"}
+              >
+                <Text userSelect={"none"}>Drag & drop to reorder list</Text>
+              </Flex>
             )}
           </Box>
-          {isDraggable && parsedUsersListLS.length > 1 && (
-            <Flex
-              justifyContent={"center"}
-              alignItems={"center"}
-              color={"grey"}
-              fontWeight={"700"}
-              fontSize={"large"}
-              mt={"10"}
-            >
-              <Text userSelect={"none"}>Drag & drop to reorder list</Text>
-            </Flex>
-          )}
         </Box>
       </Box>
     </>

@@ -10,9 +10,9 @@ const itemText = "Some item";
 const itemTextRemove = "Remove item";
 const temTextToggle = "Toggle item";
 const initData = initListDb.data;
-const temText1 = initData.list[0].title;
-const itemText2 = initData.list[1].title;
-const itemText3 = initData.list[2].title;
+const temText1 = initData.list[0].username;
+const itemText2 = initData.list[1].username;
+const itemText3 = initData.list[2].username;
 
 describe("User list crud", () => {
   if (INIT_LIST) {

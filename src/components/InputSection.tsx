@@ -73,7 +73,7 @@ const InputSection: React.FC<InputSectionProps> = ({
         alignItems={"center"}
         w={"100%"}
       >
-        <Flex gap={'1em'}>
+        <Flex gap={'1em'} flexWrap={'wrap'}>
           <Flex
             align={"center"}
             background={colorMode === "light" ? "white" : darkBg}
