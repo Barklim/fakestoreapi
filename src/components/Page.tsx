@@ -25,17 +25,18 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     itemLeft,
     itemsLoaded,
     addNewItem,
-    handleFavoriteItem,
-    handleDeleteItem,
-    handleReset,
-    handleClearAllClick,
-    handleAddItem,
     currentTab,
     handleTabClick,
     isEditable,
     setEditable,
     isDraggable,
     setDraggable,
+    searchUsers,
+    handleFavoriteItem,
+    handleDeleteItem,
+    handleReset,
+    handleClearAllClick,
+    handleAddItem,
   } = useListState(initState);
 
   const editableFeatureLS = localStorage.getItem(
@@ -79,7 +80,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
         background={"#242424"}
         position={"relative"}
       >
-        <Box position={"relative"} top={"-40vh"}>
+        <Box position={"relative"} top={"-38vh"}>
           <ThemeSwithcer />
           <Box
             w={{ base: "80%", md: "60%", lg: "40%" }}
@@ -87,18 +88,21 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
             m="auto"
             marginBottom="1.4em"
           >
-            <Header />
-            <InputSection
-              addNewItem={addNewItem}
-              item={item}
-              setItem={setItem}
-              handleAddItem={handleAddItem}
-              handleReset={handleReset}
-              isEditable={isEditable}
-              setEditable={setEditable}
-              isDraggable={isDraggable}
-              setDraggable={setDraggable}
-            />
+            <Flex gap={'1em'} flexDirection={'column'}>
+              <Header />
+              <InputSection
+                addNewItem={addNewItem}
+                item={item}
+                setItem={setItem}
+                searchUsers={searchUsers}
+                handleAddItem={handleAddItem}
+                handleReset={handleReset}
+                isEditable={isEditable}
+                setEditable={setEditable}
+                isDraggable={isDraggable}
+                setDraggable={setDraggable}
+              />
+            </Flex>
           </Box>
 
           <Box minW={"100%"} m={"auto"} position={"absolute"}>

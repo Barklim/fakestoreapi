@@ -19,6 +19,7 @@ interface InputSectionProps {
   addNewItem: () => void;
   item: string;
   setItem: React.Dispatch<React.SetStateAction<string>>;
+  searchUsers: (q: string) => void;
   handleAddItem: (e: KeyboardEvent<HTMLInputElement>) => void;
   handleReset: (callback: () => void) => void;
   isEditable: boolean;
@@ -31,6 +32,7 @@ const InputSection: React.FC<InputSectionProps> = ({
   addNewItem,
   item,
   setItem,
+  searchUsers,
   handleAddItem,
   handleReset,
   isEditable,
@@ -46,103 +48,127 @@ const InputSection: React.FC<InputSectionProps> = ({
   };
 
   return (
-    <Box m="auto" w="100%">
-      <Flex
-        justifyContent={"space-between"}
-        gap={"1em"}
-        alignItems={"center"}
-        w={"100%"}
-      >
-        <InputButton item={item} setItem={setItem} addItem={handleAddItem} />
-        <Button
-          data-testid={TestId.ButtonAdd}
-          background={colorMode === "light" ? "white" : darkBg}
-          h={"3.5em"}
-          w={"6em"}
-          onClick={addNewItem}
-          _hover={
-            colorMode === "light" ? undefined : ("none" as SystemStyleObject)
-          }
+    <Box m="auto" w="100%" gap={"300px"}>
+      <Flex gap={"1em"} flexDirection={"column"}>
+        <Flex
+          justifyContent={"space-between"}
+          gap={"1em"}
+          alignItems={"center"}
+          w={"100%"}
         >
-          Add
-        </Button>
-      </Flex>
-      <Flex
-        justifyContent={"space-between"}
-        gap={"1em"}
-        alignItems={"center"}
-        w={"100%"}
-      >
-        <Flex gap={'1em'} flexWrap={'wrap'}>
-          <Flex
-            align={"center"}
-            background={colorMode === "light" ? "white" : darkBg}
-            padding={"1.1em"}
-            gap={"1.1em"}
-            borderRadius={6}
-          >
-            <Box cursor={"pointer"} onClick={setEditable}>
-              {isEditable ? (
-                <Flex
-                  w="24px"
-                  h="24px"
-                  borderRadius={"50%"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  background={"green"}
-                >
-                  <Image src={checkIcon} />
-                </Flex>
-              ) : (
-                <Checkbox width={"22px"} height={"22px"} />
-              )}
-            </Box>
-            <Text cursor={"pointer"} userSelect={"none"}>
-              Editable
-            </Text>
-          </Flex>
-
-          <Flex
-            align={"center"}
-            background={colorMode === "light" ? "white" : darkBg}
-            padding={"1.1em"}
-            gap={"1.1em"}
-            borderRadius={6}
-          >
-            <Box cursor={"pointer"} onClick={setDraggable}>
-              {isDraggable ? (
-                <Flex
-                  w="24px"
-                  h="24px"
-                  borderRadius={"50%"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  background={"green"}
-                >
-                  <Image src={checkIcon} />
-                </Flex>
-              ) : (
-                <Checkbox width={"22px"} height={"22px"} />
-              )}
-            </Box>
-            <Text cursor={"pointer"} userSelect={"none"}>
-              Draggable
-            </Text>
-          </Flex>
+          <InputButton
+            item={item}
+            setItem={setItem}
+            addItem={handleAddItem}
+            isSearch
+            searchUsers={searchUsers}
+          />
         </Flex>
 
-        <Button
-          data-testid={TestId.ButtonAdd}
-          background={colorMode === "light" ? "white" : darkBg}
-          h={"3.5em"}
-          w={"6em"}
-          onClick={reset}
-          _hover={
-            colorMode === "light" ? undefined : ("none" as SystemStyleObject)
-          }
+        <Flex
+          justifyContent={"space-between"}
+          gap={"1em"}
+          alignItems={"center"}
+          w={"100%"}
         >
-          RESET
-        </Button>
+          <InputButton
+            item={item}
+            setItem={setItem}
+            addItem={handleAddItem}
+            isSearch={false}
+            searchUsers={searchUsers}
+          />
+          <Button
+            data-testid={TestId.ButtonAdd}
+            background={colorMode === "light" ? "white" : darkBg}
+            h={"3.5em"}
+            w={"6em"}
+            onClick={addNewItem}
+            _hover={
+              colorMode === "light" ? undefined : ("none" as SystemStyleObject)
+            }
+          >
+            Add
+          </Button>
+        </Flex>
+
+        <Flex
+          justifyContent={"space-between"}
+          gap={"1em"}
+          alignItems={"center"}
+          w={"100%"}
+        >
+          <Flex gap={"1em"} flexWrap={"wrap"}>
+            <Flex
+              align={"center"}
+              background={colorMode === "light" ? "white" : darkBg}
+              padding={"1.1em"}
+              gap={"1.1em"}
+              borderRadius={6}
+            >
+              <Box cursor={"pointer"} onClick={setEditable}>
+                {isEditable ? (
+                  <Flex
+                    w="24px"
+                    h="24px"
+                    borderRadius={"50%"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    background={"green"}
+                  >
+                    <Image src={checkIcon} />
+                  </Flex>
+                ) : (
+                  <Checkbox width={"22px"} height={"22px"} />
+                )}
+              </Box>
+              <Text cursor={"pointer"} userSelect={"none"}>
+                Editable
+              </Text>
+            </Flex>
+
+            <Flex
+              align={"center"}
+              background={colorMode === "light" ? "white" : darkBg}
+              padding={"1.1em"}
+              gap={"1.1em"}
+              borderRadius={6}
+            >
+              <Box cursor={"pointer"} onClick={setDraggable}>
+                {isDraggable ? (
+                  <Flex
+                    w="24px"
+                    h="24px"
+                    borderRadius={"50%"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    background={"green"}
+                  >
+                    <Image src={checkIcon} />
+                  </Flex>
+                ) : (
+                  <Checkbox width={"22px"} height={"22px"} />
+                )}
+              </Box>
+              <Text cursor={"pointer"} userSelect={"none"}>
+                Draggable
+              </Text>
+            </Flex>
+          </Flex>
+
+          <Button
+            data-testid={TestId.ButtonAdd}
+            background={colorMode === "light" ? "white" : darkBg}
+            h={"3.5em"}
+            w={"6em"}
+            onClick={reset}
+            _hover={
+              colorMode === "light" ? undefined : ("none" as SystemStyleObject)
+            }
+          >
+            RESET
+          </Button>
+        </Flex>
       </Flex>
     </Box>
   );

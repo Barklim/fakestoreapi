@@ -9,9 +9,15 @@ export const useListState = (initState: boolean) => {
   const [items, setItems] = useState<User[]>([]);
   const [itemLeft, setItemLeft] = useState<number>(0);
   const [itemsLoaded, setItemsLoaded] = useState(false);
-  const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">("all");
-  const [isEditable, setEditableState] = useState(localStorage.getItem(StorageKeys.USER_LIST_EDITABLE) === 'true');
-  const [isDraggable, setDraggableState] = useState(localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE) === 'true');
+  const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">(
+    "all"
+  );
+  const [isEditable, setEditableState] = useState(
+    localStorage.getItem(StorageKeys.USER_LIST_EDITABLE) === "true"
+  );
+  const [isDraggable, setDraggableState] = useState(
+    localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE) === "true"
+  );
 
   const {
     addItem,
@@ -27,100 +33,119 @@ export const useListState = (initState: boolean) => {
   } = service;
 
   useEffect(() => {
-    countUnfavoriteItem().then((count) => setItemLeft(count));
+    const fetchUnfavoriteItemCount = async () => {
+      const count = await countUnfavoriteItem();
+      setItemLeft(count);
+    };
+    fetchUnfavoriteItemCount();
   }, [items]);
 
   useEffect(() => {
-    fetchList().then((data) => {
+    const fetchData = async () => {
+      const data = await fetchList();
       if (!data || (data.length === 0 && initState)) {
-        initList().then(() => {
-          fetchList().then((updatedItems) => {
-            setItems(updatedItems);
-            setItemsLoaded(true);
-          });
-        });
+        await initList();
+        const updatedItems = await fetchList();
+        setItems(updatedItems);
       } else {
         setItems(data);
-        setItemsLoaded(true);
       }
-    });
-  }, []);
+      setItemsLoaded(true);
+    };
+    fetchData();
+  }, [initState, fetchList, initList]);
 
   const addNewItem = async () => {
     if (item) {
-      const newItem = {
+      const newItem: User = {
         id: v4(),
         username: item,
-        email: 'example.com',
-        phone: '1-570-236-7033',
+        email: "example@example.com",
+        phone: "1-570-236-7033",
         isFavorite: false,
       };
 
       await addItem(newItem);
-      setItems(await fetchList());
+      const updatedItems = await fetchList();
+      setItems(updatedItems);
       setItem("");
     }
   };
 
   const setEditable = () => {
-    if (isEditable) {
-      setEditableState(false)
-      localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'false')
-      handleAllClick()
-    } else {
-      setEditableState(true)
-      localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'true')
+    const newState = !isEditable;
+    setEditableState(newState);
+    localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, String(newState));
+    if (newState) {
+      handleAllClick();
     }
   };
 
   const setDraggable = () => {
-    if (isDraggable) {
-      setDraggableState(false)
-      localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, 'false')
-    } else {
-      setDraggableState(true)
-      localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, 'true')
-    }
+    const newState = !isDraggable;
+    setDraggableState(newState);
+    localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, String(newState));
+  };
+
+  const searchUsers = (query: string): void => {
+    const lowerCaseQuery = query.toLowerCase();
+
+    const usersListLS = localStorage.getItem(StorageKeys.USER_LIST);
+    const parsedUsersListLS: User[] = usersListLS ? JSON.parse(usersListLS) : [];
+
+    const filteredUsers = parsedUsersListLS.filter(
+      (user) =>
+        user.username.toLowerCase().includes(lowerCaseQuery) ||
+        user.email.toLowerCase().includes(lowerCaseQuery) ||
+        user.phone.toLowerCase().includes(lowerCaseQuery)
+    );
+    setItems(filteredUsers);
   };
 
   const handleFavoriteItem = async (id: string) => {
     await markItemFavorite(id);
-    countUnfavoriteItem().then((count) => setItemLeft(count));
+    const count = await countUnfavoriteItem();
+    setItemLeft(count);
   };
 
   const handleDeleteItem = async (id: string) => {
     await deleteItem(id);
-    setItems(await fetchList());
+    const updatedItems = await fetchList();
+    setItems(updatedItems);
   };
-
 
   const handleReset = async (cb: () => void) => {
     await reset(cb);
-    setItems(await fetchList());
+    const updatedItems = await fetchList();
+    setItems(updatedItems);
   };
 
   const handleClearAllClick = async () => {
     await clearAllFavoriteList();
-    fetchList().then((data) => setItems(data));
+    const data = await fetchList();
+    setItems(data);
   };
 
   const handleAllClick = async () => {
     setCurrentTab("all");
-    fetchList().then((data) => setItems(data));
+    const data = await fetchList();
+    setItems(data);
   };
 
   const handleActiveClick = async () => {
     setCurrentTab("active");
-    getActiveItems().then((items) => setItems(items));
+    const activeItems = await getActiveItems();
+    setItems(activeItems);
   };
 
   const handleFavoriteClick = async () => {
     setCurrentTab("favorite");
-    getFavoriteItems().then((items) => setItems(items));
+    const favoriteItems = await getFavoriteItems();
+    setItems(favoriteItems);
   };
 
   const handleAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
+    if (e.key === "Enter") {
       addNewItem();
     }
   };
@@ -150,6 +175,11 @@ export const useListState = (initState: boolean) => {
     itemsLoaded,
     currentTab,
     addNewItem,
+    isEditable,
+    setEditable,
+    isDraggable,
+    setDraggable,
+    searchUsers,
     handleFavoriteItem,
     handleDeleteItem,
     handleReset,
@@ -159,9 +189,5 @@ export const useListState = (initState: boolean) => {
     handleFavoriteClick,
     handleAddItem,
     handleTabClick,
-    isEditable,
-    setEditable,
-    isDraggable,
-    setDraggable
   };
 };

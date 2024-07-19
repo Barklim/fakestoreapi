@@ -32,8 +32,14 @@ Make sure you have the following installed
 - NodeJS — check .nvmrc file for needed version
 - Yarn
 
+## Done
+
+- can add in editable mode user, if press enter or press button
+- can search user buy typing or press search
+
 ## Todo
 
+- edit fields items
 - create transform class for user entity to user item list
 - classical architecture to module
 - loaders state, skeleton for load
@@ -46,6 +52,7 @@ Make sure you have the following installed
 - local storage or indexdb
 - feature api for first time init
 - ban
+- if last item no border bottom
 - Keyboard pressing, ctr+z, ctrl+e (radix ui?) e.t.c
 
 For local start better use local [json-server](https://github.com/Barklim/todo-list-json-server) it work faster

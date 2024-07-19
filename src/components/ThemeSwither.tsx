@@ -14,9 +14,14 @@ import { boxShadow } from "../app/styles/const";
 const ThemeSwithcer = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Flex justifyContent="end" alignItems="top" 
-    paddingTop={2}
-    paddingRight={2}
+    <Flex
+      justifyContent="end"
+      alignItems="top"
+      paddingTop={2}
+      paddingRight={2}
+      position={"fixed"}
+      right={"0"}
+      top={"0"}
     >
       <Box
         borderRadius={100}
