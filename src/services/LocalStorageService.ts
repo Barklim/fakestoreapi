@@ -3,7 +3,8 @@ import { ListService } from "./UserService";
 import { initList } from "../app/lib/initList";
 
 export enum StorageKeys {
-  USER_LIST = 'user_list'
+  USER_LIST = 'user_list',
+  USER_LIST_EDITABLE = 'user_list_editable'
 }
 
 class LocalStorageService implements ListService {
@@ -43,6 +44,12 @@ class LocalStorageService implements ListService {
     const users = await this.fetchList();
     const updatedData = users.filter((user) => user.id !== id);
     localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify(updatedData));
+  };
+
+  reset = async (cb: () => void): Promise<void> => {
+    localStorage.setItem(StorageKeys.USER_LIST, JSON.stringify([]));
+    await this.initList();
+    cb()
   };
 
   countUnfavoriteItem = async (): Promise<number> => {

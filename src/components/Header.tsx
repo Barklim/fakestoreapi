@@ -1,4 +1,5 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
+import { boxShadow } from "../app/styles/const";
 
 const Header = () => {
   return (
@@ -8,7 +9,7 @@ const Header = () => {
         paddingLeft={5}
         paddingRight={5}
         paddingBottom={1}
-        backgroundColor={"rgba(26, 32, 44, 0.3)"}
+        backgroundColor={boxShadow}
       >
         <Heading
           as="h2"

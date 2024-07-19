@@ -47,6 +47,12 @@ class ApiService implements ListService {
     await axios.post(`${API_URL}/data`, { users: updatedData });
   }
 
+  async reset(cb: () => void): Promise<void> {
+    await axios.post(`${API_URL}/data`, { users: [] });
+    await this.initList();
+    cb()
+  }
+
   async countUnfavoriteItem(): Promise<number> {
     const { data } = await axios.get<UsersResponse>(`${API_URL}/data`);
     const users: User[] = data.users as User[];

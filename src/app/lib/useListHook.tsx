@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import service from "../../services";
 import { User } from "../../services/User.dto";
+import { StorageKeys } from "../../services/LocalStorageService";
 
 export const useListState = (initState: boolean) => {
   const [item, setItem] = useState("");
@@ -9,6 +10,7 @@ export const useListState = (initState: boolean) => {
   const [itemLeft, setItemLeft] = useState<number>(0);
   const [itemsLoaded, setItemsLoaded] = useState(false);
   const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">("all");
+  const [isEditable, setEditableState] = useState(localStorage.getItem(StorageKeys.USER_LIST_EDITABLE) === 'true');
 
   const {
     addItem,
@@ -16,6 +18,7 @@ export const useListState = (initState: boolean) => {
     clearAllFavoriteList,
     countUnfavoriteItem,
     deleteItem,
+    reset,
     fetchList,
     getActiveItems,
     getFavoriteItems,
@@ -56,6 +59,17 @@ export const useListState = (initState: boolean) => {
     }
   };
 
+
+  const setEditable = () => {
+    if (isEditable) {
+      setEditableState(false)
+      localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'false')
+    } else {
+      setEditableState(true)
+      localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'true')
+    }
+  };
+
   const handleFavoriteItem = async (id: string) => {
     await markItemFavorite(id);
     countUnfavoriteItem().then((count) => setItemLeft(count));
@@ -63,6 +77,12 @@ export const useListState = (initState: boolean) => {
 
   const handleDeleteItem = async (id: string) => {
     await deleteItem(id);
+    setItems(await fetchList());
+  };
+
+
+  const handleReset = async (cb: () => void) => {
+    await reset(cb);
     setItems(await fetchList());
   };
 
@@ -119,11 +139,14 @@ export const useListState = (initState: boolean) => {
     addNewItem,
     handleFavoriteItem,
     handleDeleteItem,
+    handleReset,
     handleClearAllClick,
     handleAllClick,
     handleActiveClick,
     handleFavoriteClick,
     handleAddItem,
     handleTabClick,
+    isEditable,
+    setEditable
   };
 };

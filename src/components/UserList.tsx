@@ -1,5 +1,6 @@
 import { FC, Dispatch, SetStateAction } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { Flex } from "@chakra-ui/react";
 import { User } from "../services/User.dto";
 import ListItem from "./ListItem";
 import service from "../services";
@@ -70,6 +71,9 @@ const UserList: FC<UserListProps> = ({
                   index={index}
                 />
               ))}
+            {items.length === 0 && (
+              <Flex h={70} align={'center'} justifyContent={'center'}><div>Nothing to show :(</div></Flex>
+            )}
             {provided.placeholder}
           </div>
         )}

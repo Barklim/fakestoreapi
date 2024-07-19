@@ -7,6 +7,10 @@ import { StatusBar } from "./StatusBar";
 import ThemeSwithcer from "./ThemeSwither";
 import InputSection from "./InputSection";
 import { useListState } from "../app/lib/useListHook";
+import { StorageKeys } from "../services/LocalStorageService";
+import { useEffect } from "react";
+import { USER_LIST_EDITABLE_STATE } from "../config";
+import { darkBg } from "../app/styles/const";
 
 interface PageProps {
   initState?: boolean;
@@ -23,11 +27,27 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     addNewItem,
     handleFavoriteItem,
     handleDeleteItem,
+    handleReset,
     handleClearAllClick,
     handleAddItem,
     currentTab,
     handleTabClick,
+    isEditable,
+    setEditable,
   } = useListState(initState);
+
+  const editableFeatureLS = localStorage.getItem(
+    StorageKeys.USER_LIST_EDITABLE
+  );
+
+  useEffect(() => {
+    editableFeatureLS === null
+      ? localStorage.setItem(
+          StorageKeys.USER_LIST_EDITABLE,
+          String(USER_LIST_EDITABLE_STATE)
+        )
+      : null;
+  }, [editableFeatureLS]);
 
   return (
     <>
@@ -40,13 +60,16 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
         p={0}
       >
         <ThemeSwithcer />
-        <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="4em 0" m="auto">
+        <Box w={{ base: "80%", md: "60%", lg: "40%" }} p="0 0" m="auto">
           <Header />
           <InputSection
             addNewItem={addNewItem}
             item={item}
             setItem={setItem}
             handleAddItem={handleAddItem}
+            handleReset={handleReset}
+            isEditable={isEditable}
+            setEditable={setEditable}
           />
         </Box>
       </Box>
@@ -63,7 +86,8 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
               maxH={"50vh"}
               overflowY={"auto"}
               borderTopRadius={"10px"}
-              backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+              borderBottomRadius={isEditable ? 0 : "10px"}
+              backgroundColor={colorMode === "light" ? "white" : darkBg}
             >
               <UserList
                 items={items}
@@ -73,12 +97,14 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                 itemsLoaded={itemsLoaded}
               />
             </Box>
-            <StatusBar
-              itemLeft={itemLeft}
-              handleClearAllClick={handleClearAllClick}
-              currentTab={currentTab}
-              handleTabClick={handleTabClick}
-            />
+            {isEditable && items.length > 0 && (
+              <StatusBar
+                itemLeft={itemLeft}
+                handleClearAllClick={handleClearAllClick}
+                currentTab={currentTab}
+                handleTabClick={handleTabClick}
+              />
+            )}
           </Box>
           <Flex
             justifyContent={"center"}

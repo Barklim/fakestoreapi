@@ -9,6 +9,7 @@ import {
 
 import moonIcon from "../assets/icon-moon.svg";
 import sunIcon from "../assets/icon-sun.svg";
+import { boxShadow } from "../app/styles/const";
 
 const ThemeSwithcer = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -21,7 +22,7 @@ const ThemeSwithcer = () => {
         borderRadius={100}
         paddingTop={2}
         paddingBottom={2}
-        backgroundColor={"rgba(26, 32, 44, 0.3)"}
+        backgroundColor={boxShadow}
       >
         <Button
           variant="ghost"

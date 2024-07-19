@@ -7,6 +7,7 @@ export interface ListService {
   isItemFavorite: (id: string) => Promise<boolean | undefined>;
   markItemFavorite: (id: string) => Promise<void>;
   deleteItem: (id: string) => Promise<void>;
+  reset: (callback: () => void) => void;
   countUnfavoriteItem: () => Promise<number>;
   clearAllFavoriteList: () => Promise<void>;
   getActiveItems: () => Promise<User[]>;

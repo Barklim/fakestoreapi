@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Box, ColorMode, Flex, Text, useColorMode } from "@chakra-ui/react";
 import { TestId } from "../tests";
+import { darkBg } from "../app/styles/const";
 
 interface StatusBarProps {
   itemLeft: number;
@@ -52,7 +53,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             justifyContent={"space-between"}
             alignItems={"center"}
             p={"1.2em"}
-            backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+            backgroundColor={colorMode === "light" ? "white" : darkBg}
             borderBottomRadius={"10px"}
           >
             <Text>
@@ -73,7 +74,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             justifyContent={"center"}
             alignItems={"center"}
             borderRadius={"10px"}
-            backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+            backgroundColor={colorMode === "light" ? "white" : darkBg}
             gap={"1em"}
           >
             <Text
@@ -108,7 +109,7 @@ export const StatusBar: FC<StatusBarProps> = ({
           w={"100%"}
           justifyContent={"space-between"}
           borderBottomRadius={"10px"}
-          backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+          backgroundColor={colorMode === "light" ? "white" : darkBg}
         >
           <Text>
             {itemLeft} {itemLeft > 1 ? "items" : "item"} left
@@ -117,7 +118,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             justifyContent={"center"}
             alignItems={"center"}
             borderRadius={"10px"}
-            backgroundColor={colorMode === "light" ? "white" : "#1a202c"}
+            backgroundColor={colorMode === "light" ? "white" : darkBg}
             gap={"1em"}
           >
             <Text

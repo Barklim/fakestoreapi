@@ -8,6 +8,7 @@ import { User } from "../services/User.dto";
 import { TestId } from "../tests";
 
 import checkIcon from "../assets/icon-check.svg";
+import { darkBg } from "../app/styles/const";
 
 interface ListItemProps {
   item: User;
@@ -58,7 +59,7 @@ const ListItem: FC<ListItemProps> = ({
             borderBottom="1px solid grey"
             onMouseEnter={() => setIsVisible(true)}
             onMouseLeave={() => setIsVisible(false)}
-            background={colorMode === "light" ? "white" : "#1a202c"}
+            background={colorMode === "light" ? "white" : darkBg}
           >
             <Flex alignItems={"center"} minW={"100%"}>
               <Box cursor={"pointer"} onClick={() => handleClick(item.id)}>

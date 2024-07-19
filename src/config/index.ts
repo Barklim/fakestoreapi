@@ -8,3 +8,5 @@ export const API_URL = process.env.NODE_ENV === 'production' ? PROD_API_URL : DE
 export const getApiUrl = () => API_URL;
 
 export const INIT_LIST = true;
+
+export const USER_LIST_EDITABLE_STATE = false;

@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import arrowDownIcon from "../assets/arrow-down.svg";
 import { TestId } from "../tests";
+import { darkBg } from "../app/styles/const";
 
 interface InputButtonProps {
   item: string;
@@ -21,7 +22,7 @@ const InputButton: FC<InputButtonProps> = ({ item, setItem, addItem }) => {
   return (
     <Flex
       m="1.2em 0"
-      background={colorMode === "light" ? "white" : "#1a202c"}
+      background={colorMode === "light" ? "white" : darkBg}
       p="0.1em 0.1em 0.1em 0.6em"
       borderRadius={"0.5em"}
       w="100%"
