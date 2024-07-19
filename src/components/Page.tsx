@@ -135,7 +135,6 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                   itemsLoaded={itemsLoaded}
                   isEditable={isEditable}
                   isDraggable={isDraggable}
-                  isAddable={isAddable}
                 />
               </Box>
               {isEditable && parsedUsersListLS.length > 0 && (

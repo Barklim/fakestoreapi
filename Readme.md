@@ -1,8 +1,11 @@
 ## FakeStoreApi
 
+[![Netlify Status]([![Netlify Status](https://api.netlify.com/api/v1/badges/e51bf785-4c65-4182-aff9-18c5ffbf08e9/deploy-status)](https://app.netlify.com/sites/klimbarkstore/deploys))
+![GitHub top language](https://img.shields.io/github/languages/top/Barklim/fakestoreapi)
+
 Simple user list of FakeStoreApi application with TypeScript, React and React Hooks.
 
-- Client - [vercel](https://todos-swart-eight.vercel.app/)
+- Client - [netlify](https://klimbarkstore.netlify.app/)
 - json-server - [vercel](https://todo-list-json-server-hnyxyyqsa-klim-barks-projects.vercel.app/)
 - api - [FakeStoreApi](https://fakestoreapi.com/)
 
@@ -68,7 +71,7 @@ if use local json-server change config/index.ts const URL
 - **Data model**: `json-server`, `local storage`
 - **Lang**: `typescript`
 - **Lint**: `eslint`, `prettier`
-- **Deployment**: `vercel`
+- **Deployment**: `netlify`
 
 <div align="center">
 

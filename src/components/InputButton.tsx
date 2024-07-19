@@ -6,7 +6,6 @@ import {
   Input,
   Image,
   useColorMode,
-  theme,
 } from "@chakra-ui/react";
 import arrowDownIcon from "../assets/arrow-down.svg";
 import searchIcon from "../assets/search.svg";
@@ -21,7 +20,7 @@ interface InputButtonProps {
   searchUsers: (q: string) => void;
 }
 
-const InputButton: FC<InputButtonProps> = ({ item, setItem, addItem, isSearch, searchUsers }) => {
+const InputButton: FC<InputButtonProps> = ({ setItem, addItem, isSearch, searchUsers }) => {
   const { colorMode } = useColorMode();
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

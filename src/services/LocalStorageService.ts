@@ -1,7 +1,7 @@
 import { User } from "./User.dto";
 import { ListService } from "./UserService";
-import { initList } from "../app/lib/initList";
 import { FAKESTORE_API_URL } from "../config";
+// import { initList } from "../app/lib/initList";
 
 export enum StorageKeys {
   USER_LIST = 'user_list',

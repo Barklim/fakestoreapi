@@ -26,7 +26,6 @@ interface UserListProps {
   itemsLoaded: boolean;
   isEditable: boolean;
   isDraggable: boolean;
-  isAddable: boolean;
 }
 
 const UserList: FC<UserListProps> = ({
@@ -37,7 +36,6 @@ const UserList: FC<UserListProps> = ({
   itemsLoaded,
   isEditable,
   isDraggable,
-  isAddable
 }) => {
   if (!itemsLoaded) {
     return <div>Loading...</div>;
@@ -76,7 +74,6 @@ const UserList: FC<UserListProps> = ({
                   isDragDisabled={isDragDisabled}
                   isEditable={isEditable}
                   isDraggable={isDraggable}
-                  isAddable={isAddable}
                   index={index}
                 />
               ))}
