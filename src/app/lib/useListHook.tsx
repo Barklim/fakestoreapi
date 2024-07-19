@@ -11,6 +11,7 @@ export const useListState = (initState: boolean) => {
   const [itemsLoaded, setItemsLoaded] = useState(false);
   const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">("all");
   const [isEditable, setEditableState] = useState(localStorage.getItem(StorageKeys.USER_LIST_EDITABLE) === 'true');
+  const [isDraggable, setDraggableState] = useState(localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE) === 'true');
 
   const {
     addItem,
@@ -67,6 +68,16 @@ export const useListState = (initState: boolean) => {
     } else {
       setEditableState(true)
       localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, 'true')
+    }
+  };
+
+  const setDraggable = () => {
+    if (isDraggable) {
+      setDraggableState(false)
+      localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, 'false')
+    } else {
+      setDraggableState(true)
+      localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, 'true')
     }
   };
 
@@ -147,6 +158,8 @@ export const useListState = (initState: boolean) => {
     handleAddItem,
     handleTabClick,
     isEditable,
-    setEditable
+    setEditable,
+    isDraggable,
+    setDraggable
   };
 };

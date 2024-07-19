@@ -14,6 +14,7 @@ interface ListItemProps {
   handleFavoriteItem: (id: string) => Promise<void>;
   handleDeleteItem: (id: string) => Promise<void>;
   isDragDisabled: boolean;
+  isDraggable: boolean;
   isEditable: boolean;
   index: number;
 }
@@ -23,6 +24,7 @@ const ListItem: FC<ListItemProps> = ({
   handleFavoriteItem,
   handleDeleteItem,
   isDragDisabled,
+  isDraggable,
   isEditable,
   index,
 }) => {
@@ -46,7 +48,7 @@ const ListItem: FC<ListItemProps> = ({
     <Draggable
       draggableId={item.id}
       index={index}
-      isDragDisabled={isDragDisabled}
+      isDragDisabled={isDragDisabled || !isDraggable}
     >
       {(provided) => (
         <div

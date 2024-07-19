@@ -45,7 +45,7 @@ export const StatusBar: FC<StatusBarProps> = ({
   }, []);
 
   return (
-    <Box fontWeight={"700"} color={colorMode === "light" ? "black" : "white"}>
+    <Box fontWeight={"700"} color={colorMode === "light" ? "black" : "white"} userSelect={'none'}>
       {isMobileView ? (
         <Flex direction={"column"}>
           <Flex

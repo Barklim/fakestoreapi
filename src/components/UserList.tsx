@@ -25,6 +25,7 @@ interface UserListProps {
   setItems: Dispatch<SetStateAction<User[]>>;
   itemsLoaded: boolean;
   isEditable: boolean;
+  isDraggable: boolean;
 }
 
 const UserList: FC<UserListProps> = ({
@@ -33,7 +34,8 @@ const UserList: FC<UserListProps> = ({
   handleDeleteItem,
   setItems,
   itemsLoaded,
-  isEditable
+  isEditable,
+  isDraggable
 }) => {
   if (!itemsLoaded) {
     return <div>Loading...</div>;
@@ -71,6 +73,7 @@ const UserList: FC<UserListProps> = ({
                   handleDeleteItem={handleDeleteItem}
                   isDragDisabled={isDragDisabled}
                   isEditable={isEditable}
+                  isDraggable={isDraggable}
                   index={index}
                 />
               ))}

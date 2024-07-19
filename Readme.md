@@ -37,6 +37,7 @@ Make sure you have the following installed
 - create transform class for user entity to user item list
 - classical architecture to module
 - loaders state, skeleton for load
+- custom hook for localstorage
 - add some styled scss
 - migrate from vite to webpack, vitest to jest
 - handleclick usecallback?

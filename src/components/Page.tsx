@@ -9,7 +9,7 @@ import InputSection from "./InputSection";
 import { useListState } from "../app/lib/useListHook";
 import { StorageKeys } from "../services/LocalStorageService";
 import { useEffect } from "react";
-import { USER_LIST_EDITABLE_STATE } from "../config";
+import { USER_LIST_DRAGGABLE_STATE, USER_LIST_EDITABLE_STATE } from "../config";
 import { darkBg } from "../app/styles/const";
 
 interface PageProps {
@@ -34,14 +34,17 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     handleTabClick,
     isEditable,
     setEditable,
+    isDraggable,
+    setDraggable,
   } = useListState(initState);
 
   const editableFeatureLS = localStorage.getItem(
     StorageKeys.USER_LIST_EDITABLE
   );
-  const usersListLS = localStorage.getItem(
-    StorageKeys.USER_LIST
+  const draggalbeFeatureLS = localStorage.getItem(
+    StorageKeys.USER_LIST_DRAGGABLE
   );
+  const usersListLS = localStorage.getItem(StorageKeys.USER_LIST);
   const parsedUsersListLS = usersListLS ? JSON.parse(usersListLS) : [];
 
   useEffect(() => {
@@ -51,7 +54,13 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
           String(USER_LIST_EDITABLE_STATE)
         )
       : null;
-  }, [editableFeatureLS]);
+    draggalbeFeatureLS === null
+      ? localStorage.setItem(
+          StorageKeys.USER_LIST_DRAGGABLE,
+          String(USER_LIST_DRAGGABLE_STATE)
+        )
+      : null;
+  }, [editableFeatureLS, draggalbeFeatureLS]);
 
   return (
     <>
@@ -74,6 +83,8 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
             handleReset={handleReset}
             isEditable={isEditable}
             setEditable={setEditable}
+            isDraggable={isDraggable}
+            setDraggable={setDraggable}
           />
         </Box>
       </Box>
@@ -90,7 +101,9 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
               maxH={"50vh"}
               overflowY={"auto"}
               borderTopRadius={"10px"}
-              borderBottomRadius={isEditable && parsedUsersListLS.length > 0 ? 0 : "10px"}
+              borderBottomRadius={
+                isEditable && parsedUsersListLS.length > 0 ? 0 : "10px"
+              }
               backgroundColor={colorMode === "light" ? "white" : darkBg}
             >
               <UserList
@@ -100,6 +113,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                 setItems={setItems}
                 itemsLoaded={itemsLoaded}
                 isEditable={isEditable}
+                isDraggable={isDraggable}
               />
             </Box>
             {isEditable && parsedUsersListLS.length > 0 && (
@@ -111,16 +125,18 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
               />
             )}
           </Box>
-          <Flex
-            justifyContent={"center"}
-            alignItems={"center"}
-            color={"grey"}
-            fontWeight={"700"}
-            fontSize={"large"}
-            mt={"10"}
-          >
-            <Text userSelect={"none"}>Drag & drop to reorder list</Text>
-          </Flex>
+          {isDraggable && parsedUsersListLS.length > 1 && (
+            <Flex
+              justifyContent={"center"}
+              alignItems={"center"}
+              color={"grey"}
+              fontWeight={"700"}
+              fontSize={"large"}
+              mt={"10"}
+            >
+              <Text userSelect={"none"}>Drag & drop to reorder list</Text>
+            </Flex>
+          )}
         </Box>
       </Box>
     </>

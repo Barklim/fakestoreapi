@@ -20,9 +20,11 @@ interface InputSectionProps {
   item: string;
   setItem: React.Dispatch<React.SetStateAction<string>>;
   handleAddItem: (e: KeyboardEvent<HTMLInputElement>) => void;
-  handleReset: (callback: () => void) => void
+  handleReset: (callback: () => void) => void;
   isEditable: boolean;
   setEditable: () => void;
+  isDraggable: boolean;
+  setDraggable: () => void;
 }
 
 const InputSection: React.FC<InputSectionProps> = ({
@@ -33,12 +35,14 @@ const InputSection: React.FC<InputSectionProps> = ({
   handleReset,
   isEditable,
   setEditable,
+  isDraggable,
+  setDraggable,
 }) => {
   const { colorMode } = useColorMode();
 
   const reset = async () => {
-    const log = () => console.log('reset')
-    handleReset(log)
+    const log = () => console.log("reset");
+    handleReset(log);
   };
 
   return (
@@ -69,30 +73,62 @@ const InputSection: React.FC<InputSectionProps> = ({
         alignItems={"center"}
         w={"100%"}
       >
-        <Flex
-          align={"center"}
-          background={colorMode === "light" ? "white" : darkBg}
-          padding={"1.1em"}
-          gap={"1.1em"}
-          borderRadius={6}
-        >
-          <Box cursor={"pointer"} onClick={setEditable}>
-            {isEditable ? (
-              <Flex
-                w="24px"
-                h="24px"
-                borderRadius={"50%"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                background={"green"}
-              >
-                <Image src={checkIcon} />
-              </Flex>
-            ) : (
-              <Checkbox width={"22px"} height={"22px"} />
-            )}
-          </Box>
-          <Text cursor={"pointer"} userSelect={'none'}>Editable</Text>
+        <Flex gap={'1em'}>
+          <Flex
+            align={"center"}
+            background={colorMode === "light" ? "white" : darkBg}
+            padding={"1.1em"}
+            gap={"1.1em"}
+            borderRadius={6}
+          >
+            <Box cursor={"pointer"} onClick={setEditable}>
+              {isEditable ? (
+                <Flex
+                  w="24px"
+                  h="24px"
+                  borderRadius={"50%"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  background={"green"}
+                >
+                  <Image src={checkIcon} />
+                </Flex>
+              ) : (
+                <Checkbox width={"22px"} height={"22px"} />
+              )}
+            </Box>
+            <Text cursor={"pointer"} userSelect={"none"}>
+              Editable
+            </Text>
+          </Flex>
+
+          <Flex
+            align={"center"}
+            background={colorMode === "light" ? "white" : darkBg}
+            padding={"1.1em"}
+            gap={"1.1em"}
+            borderRadius={6}
+          >
+            <Box cursor={"pointer"} onClick={setDraggable}>
+              {isDraggable ? (
+                <Flex
+                  w="24px"
+                  h="24px"
+                  borderRadius={"50%"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  background={"green"}
+                >
+                  <Image src={checkIcon} />
+                </Flex>
+              ) : (
+                <Checkbox width={"22px"} height={"22px"} />
+              )}
+            </Box>
+            <Text cursor={"pointer"} userSelect={"none"}>
+              Draggable
+            </Text>
+          </Flex>
         </Flex>
 
         <Button

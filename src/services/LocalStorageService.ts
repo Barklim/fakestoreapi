@@ -4,7 +4,8 @@ import { initList } from "../app/lib/initList";
 
 export enum StorageKeys {
   USER_LIST = 'user_list',
-  USER_LIST_EDITABLE = 'user_list_editable'
+  USER_LIST_EDITABLE = 'user_list_editable',
+  USER_LIST_DRAGGABLE = 'user_list_draggable'
 }
 
 class LocalStorageService implements ListService {
