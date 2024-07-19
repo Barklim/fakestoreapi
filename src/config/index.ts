@@ -12,3 +12,4 @@ export const INIT_LIST = true;
 
 export const USER_LIST_EDITABLE_STATE = false;
 export const USER_LIST_DRAGGABLE_STATE = false;
+export const USER_LIST_ADDABLE = false;

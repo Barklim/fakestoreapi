@@ -39,6 +39,7 @@ Make sure you have the following installed
 
 ## Todo
 
+- add view mode feature
 - edit fields items
 - create transform class for user entity to user item list
 - classical architecture to module

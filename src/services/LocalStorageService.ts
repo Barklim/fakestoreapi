@@ -6,7 +6,8 @@ import { FAKESTORE_API_URL } from "../config";
 export enum StorageKeys {
   USER_LIST = 'user_list',
   USER_LIST_EDITABLE = 'user_list_editable',
-  USER_LIST_DRAGGABLE = 'user_list_draggable'
+  USER_LIST_DRAGGABLE = 'user_list_draggable',
+  USER_LIST_ADDABLE = 'user_list_addable'
 }
 
 class LocalStorageService implements ListService {

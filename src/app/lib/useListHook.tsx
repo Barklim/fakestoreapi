@@ -18,6 +18,9 @@ export const useListState = (initState: boolean) => {
   const [isDraggable, setDraggableState] = useState(
     localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE) === "true"
   );
+  const [isAddable, setAddableState] = useState(
+    localStorage.getItem(StorageKeys.USER_LIST_ADDABLE) === "true"
+  );
 
   const {
     addItem,
@@ -85,6 +88,12 @@ export const useListState = (initState: boolean) => {
     const newState = !isDraggable;
     setDraggableState(newState);
     localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, String(newState));
+  };
+
+  const setAddable = () => {
+    const newState = !isAddable;
+    setAddableState(newState);
+    localStorage.setItem(StorageKeys.USER_LIST_ADDABLE, String(newState));
   };
 
   const searchUsers = (query: string): void => {
@@ -179,6 +188,8 @@ export const useListState = (initState: boolean) => {
     setEditable,
     isDraggable,
     setDraggable,
+    isAddable,
+    setAddable,
     searchUsers,
     handleFavoriteItem,
     handleDeleteItem,

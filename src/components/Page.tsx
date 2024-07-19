@@ -9,7 +9,11 @@ import InputSection from "./InputSection";
 import { useListState } from "../app/lib/useListHook";
 import { StorageKeys } from "../services/LocalStorageService";
 import { useEffect } from "react";
-import { USER_LIST_DRAGGABLE_STATE, USER_LIST_EDITABLE_STATE } from "../config";
+import {
+  USER_LIST_ADDABLE,
+  USER_LIST_DRAGGABLE_STATE,
+  USER_LIST_EDITABLE_STATE,
+} from "../config";
 import { darkBg } from "../app/styles/const";
 
 interface PageProps {
@@ -31,6 +35,8 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     setEditable,
     isDraggable,
     setDraggable,
+    isAddable,
+    setAddable,
     searchUsers,
     handleFavoriteItem,
     handleDeleteItem,
@@ -39,12 +45,9 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     handleAddItem,
   } = useListState(initState);
 
-  const editableFeatureLS = localStorage.getItem(
-    StorageKeys.USER_LIST_EDITABLE
-  );
-  const draggalbeFeatureLS = localStorage.getItem(
-    StorageKeys.USER_LIST_DRAGGABLE
-  );
+  const editableFeatureLS = localStorage.getItem(StorageKeys.USER_LIST_EDITABLE);
+  const draggalbeFeatureLS = localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE);
+  const addableFeatureLS = localStorage.getItem(StorageKeys.USER_LIST_ADDABLE);
   const usersListLS = localStorage.getItem(StorageKeys.USER_LIST);
   const parsedUsersListLS = usersListLS ? JSON.parse(usersListLS) : [];
 
@@ -61,7 +64,13 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
           String(USER_LIST_DRAGGABLE_STATE)
         )
       : null;
-  }, [editableFeatureLS, draggalbeFeatureLS]);
+      addableFeatureLS === null
+      ? localStorage.setItem(
+          StorageKeys.USER_LIST_ADDABLE,
+          String(USER_LIST_ADDABLE)
+        )
+      : null;
+  }, [editableFeatureLS, draggalbeFeatureLS, addableFeatureLS]);
 
   return (
     <>
@@ -80,15 +89,15 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
         background={"#242424"}
         position={"relative"}
       >
-        <Box position={"relative"} top={"-38vh"}>
+        <Box position={"relative"} top={isAddable ? '-38vh' : '-28vh'}>
           <ThemeSwithcer />
           <Box
-            w={{ base: "80%", md: "60%", lg: "40%" }}
+            w={{ base: "80%", md: "60%", lg: "50%" }}
             p="0 0"
             m="auto"
             marginBottom="1.4em"
           >
-            <Flex gap={'1em'} flexDirection={'column'}>
+            <Flex gap={"1em"} flexDirection={"column"}>
               <Header />
               <InputSection
                 addNewItem={addNewItem}
@@ -101,12 +110,14 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                 setEditable={setEditable}
                 isDraggable={isDraggable}
                 setDraggable={setDraggable}
+                isAddable={isAddable}
+                setAddable={setAddable}
               />
             </Flex>
           </Box>
 
           <Box minW={"100%"} m={"auto"} position={"absolute"}>
-            <Box w={{ base: "80%", md: "60%", lg: "40%" }} m={"auto"}>
+            <Box w={{ base: "80%", md: "60%", lg: "50%" }} m={"auto"}>
               <Box
                 maxH={"50vh"}
                 overflowY={"auto"}
@@ -124,6 +135,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                   itemsLoaded={itemsLoaded}
                   isEditable={isEditable}
                   isDraggable={isDraggable}
+                  isAddable={isAddable}
                 />
               </Box>
               {isEditable && parsedUsersListLS.length > 0 && (

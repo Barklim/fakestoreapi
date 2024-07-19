@@ -6,6 +6,7 @@ import {
   Input,
   Image,
   useColorMode,
+  theme,
 } from "@chakra-ui/react";
 import arrowDownIcon from "../assets/arrow-down.svg";
 import searchIcon from "../assets/search.svg";
@@ -47,7 +48,7 @@ const InputButton: FC<InputButtonProps> = ({ item, setItem, addItem, isSearch, s
           alignItems={"center"}
           h={"100%"}
         >
-          <Image src={isSearch ? searchIcon : arrowDownIcon} opacity={0.3} />
+          <Image src={isSearch ? searchIcon : arrowDownIcon} opacity={colorMode === 'light' ? 0.8 : 0.3} />
         </InputLeftElement>
         <Input
           data-testid={TestId.InputButton}

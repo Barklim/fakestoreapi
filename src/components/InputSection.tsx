@@ -26,6 +26,8 @@ interface InputSectionProps {
   setEditable: () => void;
   isDraggable: boolean;
   setDraggable: () => void;
+  isAddable: boolean;
+  setAddable: () => void;
 }
 
 const InputSection: React.FC<InputSectionProps> = ({
@@ -39,6 +41,8 @@ const InputSection: React.FC<InputSectionProps> = ({
   setEditable,
   isDraggable,
   setDraggable,
+  isAddable,
+  setAddable,
 }) => {
   const { colorMode } = useColorMode();
 
@@ -65,37 +69,41 @@ const InputSection: React.FC<InputSectionProps> = ({
           />
         </Flex>
 
-        <Flex
-          justifyContent={"space-between"}
-          gap={"1em"}
-          alignItems={"center"}
-          w={"100%"}
-        >
-          <InputButton
-            item={item}
-            setItem={setItem}
-            addItem={handleAddItem}
-            isSearch={false}
-            searchUsers={searchUsers}
-          />
-          <Button
-            data-testid={TestId.ButtonAdd}
-            background={colorMode === "light" ? "white" : darkBg}
-            h={"3.5em"}
-            w={"6em"}
-            onClick={addNewItem}
-            _hover={
-              colorMode === "light" ? undefined : ("none" as SystemStyleObject)
-            }
+        {
+          isAddable && (
+            <Flex
+            justifyContent={"space-between"}
+            gap={"1em"}
+            alignItems={"center"}
+            w={"100%"}
           >
-            Add
-          </Button>
-        </Flex>
+            <InputButton
+              item={item}
+              setItem={setItem}
+              addItem={handleAddItem}
+              isSearch={false}
+              searchUsers={searchUsers}
+            />
+            <Button
+              data-testid={TestId.ButtonAdd}
+              background={colorMode === "light" ? "white" : darkBg}
+              h={"3.5em"}
+              w={"6em"}
+              onClick={addNewItem}
+              _hover={
+                colorMode === "light" ? undefined : ("none" as SystemStyleObject)
+              }
+            >
+              Add
+            </Button>
+          </Flex>
+          )
+        }
 
         <Flex
           justifyContent={"space-between"}
           gap={"1em"}
-          alignItems={"center"}
+          alignItems={"start"}
           w={"100%"}
         >
           <Flex gap={"1em"} flexWrap={"wrap"}>
@@ -152,6 +160,34 @@ const InputSection: React.FC<InputSectionProps> = ({
               </Box>
               <Text cursor={"pointer"} userSelect={"none"}>
                 Draggable
+              </Text>
+            </Flex>
+
+            <Flex
+              align={"center"}
+              background={colorMode === "light" ? "white" : darkBg}
+              padding={"1.1em"}
+              gap={"1.1em"}
+              borderRadius={6}
+            >
+              <Box cursor={"pointer"} onClick={setAddable}>
+                {isAddable ? (
+                  <Flex
+                    w="24px"
+                    h="24px"
+                    borderRadius={"50%"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    background={"green"}
+                  >
+                    <Image src={checkIcon} />
+                  </Flex>
+                ) : (
+                  <Checkbox width={"22px"} height={"22px"} />
+                )}
+              </Box>
+              <Text cursor={"pointer"} userSelect={"none"}>
+                Addable
               </Text>
             </Flex>
           </Flex>
