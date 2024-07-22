@@ -42,6 +42,12 @@ Make sure you have the following installed
 
 ## Todo
 
+- debounce for typing
+- inputsection refactor
+- view added
+
+- ColorMode type to enum
+- cannot add items with the same name in a row
 - add view mode feature
 - edit fields items
 - create transform class for user entity to user item list

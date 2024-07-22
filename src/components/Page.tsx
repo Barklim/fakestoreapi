@@ -8,12 +8,6 @@ import ThemeSwithcer from "./ThemeSwither";
 import InputSection from "./InputSection";
 import { useListState } from "../app/lib/useListHook";
 import { StorageKeys } from "../services/LocalStorageService";
-import { useEffect } from "react";
-import {
-  USER_LIST_ADDABLE,
-  USER_LIST_DRAGGABLE_STATE,
-  USER_LIST_EDITABLE_STATE,
-} from "../config";
 import { darkBg } from "../app/styles/const";
 
 interface PageProps {
@@ -37,6 +31,8 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     setDraggable,
     isAddable,
     setAddable,
+    isView,
+    setViewState,
     searchUsers,
     handleFavoriteItem,
     handleDeleteItem,
@@ -45,32 +41,8 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
     handleAddItem,
   } = useListState(initState);
 
-  const editableFeatureLS = localStorage.getItem(StorageKeys.USER_LIST_EDITABLE);
-  const draggalbeFeatureLS = localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE);
-  const addableFeatureLS = localStorage.getItem(StorageKeys.USER_LIST_ADDABLE);
   const usersListLS = localStorage.getItem(StorageKeys.USER_LIST);
   const parsedUsersListLS = usersListLS ? JSON.parse(usersListLS) : [];
-
-  useEffect(() => {
-    editableFeatureLS === null
-      ? localStorage.setItem(
-          StorageKeys.USER_LIST_EDITABLE,
-          String(USER_LIST_EDITABLE_STATE)
-        )
-      : null;
-    draggalbeFeatureLS === null
-      ? localStorage.setItem(
-          StorageKeys.USER_LIST_DRAGGABLE,
-          String(USER_LIST_DRAGGABLE_STATE)
-        )
-      : null;
-      addableFeatureLS === null
-      ? localStorage.setItem(
-          StorageKeys.USER_LIST_ADDABLE,
-          String(USER_LIST_ADDABLE)
-        )
-      : null;
-  }, [editableFeatureLS, draggalbeFeatureLS, addableFeatureLS]);
 
   return (
     <>
@@ -112,6 +84,8 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                 setDraggable={setDraggable}
                 isAddable={isAddable}
                 setAddable={setAddable}
+                isView={isView}
+                setViewState={setViewState}
               />
             </Flex>
           </Box>

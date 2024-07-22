@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import {
   Flex,
   InputGroup,
@@ -11,6 +11,7 @@ import arrowDownIcon from "../assets/arrow-down.svg";
 import searchIcon from "../assets/search.svg";
 import { TestId } from "../tests";
 import { darkBg } from "../app/styles/const";
+import { useDebounce } from "../app/lib/useDebounce";
 
 interface InputButtonProps {
   item: string;
@@ -22,11 +23,16 @@ interface InputButtonProps {
 
 const InputButton: FC<InputButtonProps> = ({ setItem, addItem, isSearch, searchUsers }) => {
   const { colorMode } = useColorMode();
+
+  const fetchData = useCallback((value: string) => {
+    searchUsers(value)
+  }, [searchUsers]);
+  const debouncedFetchData = useDebounce(fetchData, 400, false);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (isSearch) {
-      searchUsers(value);
+      debouncedFetchData(value);
     } else {
       setItem(value);
     }

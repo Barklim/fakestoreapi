@@ -93,7 +93,8 @@ const ListItem: FC<ListItemProps> = ({
                     maxHeight={30}
 
                     textAlign={'left'}
-                    w='15%'
+                    w='24%'
+                    minW='60px'
                     whiteSpace={'nowrap'}
                     textOverflow={'ellipsis'}
                     overflow={'hidden'}
@@ -118,6 +119,7 @@ const ListItem: FC<ListItemProps> = ({
 
                     textAlign={'left'}
                     w='35%'
+                    minW='100px'
                     whiteSpace={'nowrap'}
                     textOverflow={'ellipsis'}
                     overflow={'hidden'}
@@ -140,6 +142,7 @@ const ListItem: FC<ListItemProps> = ({
                     fontWeight={"700"}
                     fontSize={"1.2rem"}
                     maxHeight={30}
+                    textAlign={'left'}
                     userSelect={"none"}
                     textDecoration={isFavorite ? "underline" : "none"}
                     color={

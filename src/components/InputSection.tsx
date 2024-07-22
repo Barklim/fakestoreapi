@@ -3,17 +3,13 @@ import {
   Flex,
   Button,
   Box,
-  Text,
-  Image,
   useColorMode,
   SystemStyleObject,
 } from "@chakra-ui/react";
 import InputButton from "./InputButton";
-import Checkbox from "./Checkbox";
 import { TestId } from "../tests";
-
-import checkIcon from "../assets/icon-check.svg";
 import { darkBg } from "../app/styles/const";
+import { ToggleableOption } from "./ToggleableOption";
 
 interface InputSectionProps {
   addNewItem: () => void;
@@ -28,6 +24,8 @@ interface InputSectionProps {
   setDraggable: () => void;
   isAddable: boolean;
   setAddable: () => void;
+  isView: boolean;
+  setViewState: () => void;
 }
 
 const InputSection: React.FC<InputSectionProps> = ({
@@ -43,6 +41,8 @@ const InputSection: React.FC<InputSectionProps> = ({
   setDraggable,
   isAddable,
   setAddable,
+  isView,
+  setViewState,
 }) => {
   const { colorMode } = useColorMode();
 
@@ -53,6 +53,7 @@ const InputSection: React.FC<InputSectionProps> = ({
 
   return (
     <Box m="auto" w="100%" gap={"300px"}>
+      <Flex  align={'end'} h={0} justifyContent={'end'}>v.1.0.0</Flex>
       <Flex gap={"1em"} flexDirection={"column"}>
         <Flex
           justifyContent={"space-between"}
@@ -69,9 +70,8 @@ const InputSection: React.FC<InputSectionProps> = ({
           />
         </Flex>
 
-        {
-          isAddable && (
-            <Flex
+        {isAddable && (
+          <Flex
             justifyContent={"space-between"}
             gap={"1em"}
             alignItems={"center"}
@@ -97,8 +97,7 @@ const InputSection: React.FC<InputSectionProps> = ({
               Add
             </Button>
           </Flex>
-          )
-        }
+        )}
 
         <Flex
           justifyContent={"space-between"}
@@ -107,89 +106,27 @@ const InputSection: React.FC<InputSectionProps> = ({
           w={"100%"}
         >
           <Flex gap={"1em"} flexWrap={"wrap"}>
-            <Flex
-              align={"center"}
-              background={colorMode === "light" ? "white" : darkBg}
-              padding={"1.1em"}
-              gap={"1.1em"}
-              borderRadius={6}
-            >
-              <Box cursor={"pointer"} onClick={setEditable}>
-                {isEditable ? (
-                  <Flex
-                    w="24px"
-                    h="24px"
-                    borderRadius={"50%"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    background={"green"}
-                  >
-                    <Image src={checkIcon} />
-                  </Flex>
-                ) : (
-                  <Checkbox width={"22px"} height={"22px"} />
-                )}
-              </Box>
-              <Text cursor={"pointer"} userSelect={"none"}>
-                Editable
-              </Text>
-            </Flex>
-
-            <Flex
-              align={"center"}
-              background={colorMode === "light" ? "white" : darkBg}
-              padding={"1.1em"}
-              gap={"1.1em"}
-              borderRadius={6}
-            >
-              <Box cursor={"pointer"} onClick={setDraggable}>
-                {isDraggable ? (
-                  <Flex
-                    w="24px"
-                    h="24px"
-                    borderRadius={"50%"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    background={"green"}
-                  >
-                    <Image src={checkIcon} />
-                  </Flex>
-                ) : (
-                  <Checkbox width={"22px"} height={"22px"} />
-                )}
-              </Box>
-              <Text cursor={"pointer"} userSelect={"none"}>
-                Draggable
-              </Text>
-            </Flex>
-
-            <Flex
-              align={"center"}
-              background={colorMode === "light" ? "white" : darkBg}
-              padding={"1.1em"}
-              gap={"1.1em"}
-              borderRadius={6}
-            >
-              <Box cursor={"pointer"} onClick={setAddable}>
-                {isAddable ? (
-                  <Flex
-                    w="24px"
-                    h="24px"
-                    borderRadius={"50%"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    background={"green"}
-                  >
-                    <Image src={checkIcon} />
-                  </Flex>
-                ) : (
-                  <Checkbox width={"22px"} height={"22px"} />
-                )}
-              </Box>
-              <Text cursor={"pointer"} userSelect={"none"}>
-                Addable
-              </Text>
-            </Flex>
+            <ToggleableOption
+              label="Editable"
+              isActive={isEditable}
+              onToggle={setEditable}
+            />
+            <ToggleableOption
+              label="Draggable"
+              isActive={isDraggable}
+              onToggle={setDraggable}
+            />
+            <ToggleableOption
+              label="Addable"
+              isActive={isAddable}
+              onToggle={setAddable}
+            />
+            <ToggleableOption
+              label="Table"
+              isActive={isView}
+              onToggle={setViewState}
+              disabled
+            />
           </Flex>
 
           <Button

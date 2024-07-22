@@ -3,6 +3,21 @@ import { v4 } from "uuid";
 import service from "../../services";
 import { User } from "../../services/User.dto";
 import { StorageKeys } from "../../services/LocalStorageService";
+import {
+  USER_LIST_EDITABLE_STATE,
+  USER_LIST_DRAGGABLE_STATE,
+  USER_LIST_ADDABLE_STATE,
+  USER_LIST_VIEW_STATE,
+} from "../../config";
+
+const getInitialState = (key: string, defaultValue: boolean) => {
+  const state = localStorage.getItem(key);
+  if (state === null) {
+    localStorage.setItem(key, String(defaultValue));
+    return defaultValue;
+  }
+  return state === "true";
+};
 
 export const useListState = (initState: boolean) => {
   const [item, setItem] = useState("");
@@ -12,13 +27,16 @@ export const useListState = (initState: boolean) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentTab, setCurrentTab] = useState<"all" | "active" | "favorite">("all");
   const [isEditable, setEditableState] = useState(
-    localStorage.getItem(StorageKeys.USER_LIST_EDITABLE) === "true"
+    getInitialState(StorageKeys.USER_LIST_EDITABLE, USER_LIST_EDITABLE_STATE)
   );
   const [isDraggable, setDraggableState] = useState(
-    localStorage.getItem(StorageKeys.USER_LIST_DRAGGABLE) === "true"
+    getInitialState(StorageKeys.USER_LIST_DRAGGABLE, USER_LIST_DRAGGABLE_STATE)
   );
   const [isAddable, setAddableState] = useState(
-    localStorage.getItem(StorageKeys.USER_LIST_ADDABLE) === "true"
+    getInitialState(StorageKeys.USER_LIST_ADDABLE, USER_LIST_ADDABLE_STATE)
+  );
+  const [isView, setViewState] = useState(
+    getInitialState(StorageKeys.USER_LIST_VIEW, USER_LIST_VIEW_STATE)
   );
 
   const {
@@ -74,23 +92,14 @@ export const useListState = (initState: boolean) => {
     }
   };
 
-  const setEditable = () => {
-    const newState = !isEditable;
-    setEditableState(newState);
-    localStorage.setItem(StorageKeys.USER_LIST_EDITABLE, String(newState));
-    handleTabClick("all")
-  };
+  const toggleState = (state: boolean, setState: (value: boolean) => void, key: string) => {
+    const newState = !state;
+    setState(newState);
+    localStorage.setItem(key, String(newState));
 
-  const setDraggable = () => {
-    const newState = !isDraggable;
-    setDraggableState(newState);
-    localStorage.setItem(StorageKeys.USER_LIST_DRAGGABLE, String(newState));
-  };
-
-  const setAddable = () => {
-    const newState = !isAddable;
-    setAddableState(newState);
-    localStorage.setItem(StorageKeys.USER_LIST_ADDABLE, String(newState));
+    if (key === StorageKeys.USER_LIST_EDITABLE) {
+      handleTabClick("all")
+    }
   };
 
   const search = (query: string): User[] => {
@@ -187,11 +196,13 @@ export const useListState = (initState: boolean) => {
     currentTab,
     addNewItem,
     isEditable,
-    setEditable,
+    setEditable: () => toggleState(isEditable, setEditableState, StorageKeys.USER_LIST_EDITABLE),
     isDraggable,
-    setDraggable,
+    setDraggable: () => toggleState(isDraggable, setDraggableState, StorageKeys.USER_LIST_DRAGGABLE),
     isAddable,
-    setAddable,
+    setAddable: () => toggleState(isAddable, setAddableState, StorageKeys.USER_LIST_ADDABLE),
+    isView,
+    setViewState: () => toggleState(isView, setViewState, StorageKeys.USER_LIST_VIEW),
     searchUsers,
     handleFavoriteItem,
     handleDeleteItem,

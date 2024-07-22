@@ -11,5 +11,6 @@ export const getApiUrl = () => API_URL;
 export const INIT_LIST = true;
 
 export const USER_LIST_EDITABLE_STATE = false;
-export const USER_LIST_DRAGGABLE_STATE = false;
-export const USER_LIST_ADDABLE = false;
+export const USER_LIST_DRAGGABLE_STATE = true;
+export const USER_LIST_ADDABLE_STATE = false;
+export const USER_LIST_VIEW_STATE = true;

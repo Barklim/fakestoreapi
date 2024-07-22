@@ -62,7 +62,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             borderBottomRadius={"10px"}
           >
             <Text>
-              {itemLeft} {itemLeft > 1 ? "items" : "item"} left
+              {itemLeft} {itemLeft > 1 ? "items" : "item"} active
             </Text>
             <Text
               data-testid={TestId.StatusBarClear}
@@ -117,7 +117,7 @@ export const StatusBar: FC<StatusBarProps> = ({
           backgroundColor={colorMode === "light" ? "white" : darkBg}
         >
           <Text>
-            {itemLeft} {itemLeft > 1 ? "items" : "item"} left
+            {itemLeft} {itemLeft > 1 ? "items" : "item"} active
           </Text>
           <Flex
             justifyContent={"center"}
