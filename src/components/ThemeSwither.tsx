@@ -9,7 +9,7 @@ import {
 
 import moonIcon from "../assets/icon-moon.svg";
 import sunIcon from "../assets/icon-sun.svg";
-import { boxShadow } from "../app/styles/const";
+import { boxShadow, light } from "../app/styles/const";
 
 const ThemeSwithcer = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -35,7 +35,7 @@ const ThemeSwithcer = () => {
           _hover={"none" as SystemStyleObject}
           _active={"none" as SystemStyleObject}
         >
-          <Image src={colorMode !== "light" ? moonIcon : sunIcon} />
+          <Image src={colorMode !== light ? moonIcon : sunIcon} />
         </Button>
       </Box>
     </Flex>

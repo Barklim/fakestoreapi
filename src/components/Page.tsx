@@ -8,7 +8,7 @@ import ThemeSwithcer from "./ThemeSwither";
 import InputSection from "./InputSection";
 import { useListState } from "../app/lib/useListHook";
 import { StorageKeys } from "../services/LocalStorageService";
-import { darkBg } from "../app/styles/const";
+import { light, darkBg } from "../app/styles/const";
 
 interface PageProps {
   initState?: boolean;
@@ -47,7 +47,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
   return (
     <>
       <Box
-        backgroundImage={colorMode !== "light" ? lightBgImage : darkBgImage}
+        backgroundImage={colorMode !== light ? lightBgImage : darkBgImage}
         backgroundSize={"cover"}
         content={"center"}
         h={"40vh"}
@@ -99,7 +99,7 @@ const Page: React.FC<PageProps> = ({ initState = false }) => {
                 borderBottomRadius={
                   isEditable && parsedUsersListLS.length > 0 ? 0 : "10px"
                 }
-                backgroundColor={colorMode === "light" ? "white" : darkBg}
+                backgroundColor={colorMode === light ? "white" : darkBg}
               >
                 <UserList
                   items={items}

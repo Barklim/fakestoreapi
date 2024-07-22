@@ -10,7 +10,7 @@ import {
 import arrowDownIcon from "../assets/arrow-down.svg";
 import searchIcon from "../assets/search.svg";
 import { TestId } from "../tests";
-import { darkBg } from "../app/styles/const";
+import { ColorMode, light, darkBg } from "../app/styles/const";
 import { useDebounce } from "../app/lib/useDebounce";
 
 interface InputButtonProps {
@@ -22,7 +22,7 @@ interface InputButtonProps {
 }
 
 const InputButton: FC<InputButtonProps> = ({ setItem, addItem, isSearch, searchUsers }) => {
-  const { colorMode } = useColorMode();
+  const { colorMode } = useColorMode() as { colorMode: ColorMode };
 
   const fetchData = useCallback((value: string) => {
     searchUsers(value)
@@ -40,7 +40,7 @@ const InputButton: FC<InputButtonProps> = ({ setItem, addItem, isSearch, searchU
 
   return (
     <Flex
-      background={colorMode === "light" ? "white" : darkBg}
+      background={colorMode === light ? "white" : darkBg}
       p="0.1em 0.1em 0.1em 0.6em"
       borderRadius={"0.5em"}
       w="100%"
@@ -53,7 +53,7 @@ const InputButton: FC<InputButtonProps> = ({ setItem, addItem, isSearch, searchU
           alignItems={"center"}
           h={"100%"}
         >
-          <Image src={isSearch ? searchIcon : arrowDownIcon} opacity={colorMode === 'light' ? 0.8 : 0.3} />
+          <Image src={isSearch ? searchIcon : arrowDownIcon} opacity={colorMode === light ? 0.8 : 0.3} />
         </InputLeftElement>
         <Input
           data-testid={TestId.InputButton}

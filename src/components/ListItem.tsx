@@ -8,7 +8,7 @@ import { User } from "../services/User.dto";
 import { TestId } from "../tests";
 
 import checkIcon from "../assets/icon-check.svg";
-import { darkBg } from "../app/styles/const";
+import { ColorMode, light, darkBg } from "../app/styles/const";
 interface ListItemProps {
   item: User;
   handleFavoriteItem: (id: string) => Promise<void>;
@@ -30,7 +30,7 @@ const ListItem: FC<ListItemProps> = ({
 }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
-  const { colorMode } = useColorMode();
+  const { colorMode } = useColorMode() as { colorMode: ColorMode };
   const { isItemFavorite } = service;
 
   const handleClick = async (id: string) => {
@@ -58,11 +58,10 @@ const ListItem: FC<ListItemProps> = ({
         >
           <Flex
             p="1.1em"
-            // h="4.4em"
             borderBottom="1px solid grey"
             onMouseEnter={() => setIsVisible(true)}
             onMouseLeave={() => setIsVisible(false)}
-            background={colorMode === "light" ? "white" : darkBg}
+            background={colorMode === light ? "white" : darkBg}
           >
             <Flex alignItems={"center"} minW={"100%"}>
               {isEditable && (
@@ -104,7 +103,7 @@ const ListItem: FC<ListItemProps> = ({
                     color={
                       isFavorite
                         ? "grey"
-                        : colorMode === "light"
+                        : colorMode === light
                           ? "black"
                           : "white"
                     }
@@ -129,7 +128,7 @@ const ListItem: FC<ListItemProps> = ({
                     color={
                       isFavorite
                         ? "grey"
-                        : colorMode === "light"
+                        : colorMode === light
                           ? "black"
                           : "white"
                     }
@@ -148,7 +147,7 @@ const ListItem: FC<ListItemProps> = ({
                     color={
                       isFavorite
                         ? "grey"
-                        : colorMode === "light"
+                        : colorMode === light
                           ? "black"
                           : "white"
                     }

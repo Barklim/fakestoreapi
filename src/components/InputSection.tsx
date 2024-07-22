@@ -8,8 +8,9 @@ import {
 } from "@chakra-ui/react";
 import InputButton from "./InputButton";
 import { TestId } from "../tests";
-import { darkBg } from "../app/styles/const";
+import { light, darkBg } from "../app/styles/const";
 import { ToggleableOption } from "./ToggleableOption";
+import { version } from "../config";
 
 interface InputSectionProps {
   addNewItem: () => void;
@@ -53,7 +54,7 @@ const InputSection: React.FC<InputSectionProps> = ({
 
   return (
     <Box m="auto" w="100%" gap={"300px"}>
-      <Flex  align={'end'} h={0} justifyContent={'end'}>v.1.0.0</Flex>
+      <Flex  align={'end'} h={0} justifyContent={'end'}>{`v ${version}`}</Flex>
       <Flex gap={"1em"} flexDirection={"column"}>
         <Flex
           justifyContent={"space-between"}
@@ -86,12 +87,12 @@ const InputSection: React.FC<InputSectionProps> = ({
             />
             <Button
               data-testid={TestId.ButtonAdd}
-              background={colorMode === "light" ? "white" : darkBg}
+              background={colorMode === light ? "white" : darkBg}
               h={"3.5em"}
               w={"6em"}
               onClick={addNewItem}
               _hover={
-                colorMode === "light" ? undefined : ("none" as SystemStyleObject)
+                colorMode === light ? undefined : ("none" as SystemStyleObject)
               }
             >
               Add
@@ -131,12 +132,12 @@ const InputSection: React.FC<InputSectionProps> = ({
 
           <Button
             data-testid={TestId.ButtonAdd}
-            background={colorMode === "light" ? "white" : darkBg}
+            background={colorMode === light ? "white" : darkBg}
             h={"3.5em"}
             w={"6em"}
             onClick={reset}
             _hover={
-              colorMode === "light" ? undefined : ("none" as SystemStyleObject)
+              colorMode === light ? undefined : ("none" as SystemStyleObject)
             }
           >
             RESET

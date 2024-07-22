@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import Checkbox from "./Checkbox";
 import checkIcon from "../assets/icon-check.svg";
-import { darkBg } from "../app/styles/const";
+import { light, darkBg } from "../app/styles/const";
 
 export const ToggleableOption: React.FC<{
     label: string;
@@ -20,7 +20,7 @@ export const ToggleableOption: React.FC<{
     return (
       <Flex
         align={"center"}
-        background={colorMode === "light" ? "white" : darkBg}
+        background={colorMode === light ? "white" : darkBg}
         padding={"1.1em"}
         gap={"1.1em"}
         borderRadius={6}

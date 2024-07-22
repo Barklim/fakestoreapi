@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { Box, ColorMode, Flex, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
 import { TestId } from "../tests";
-import { darkBg } from "../app/styles/const";
+import { darkBg, ColorMode, ColorModeEnum } from "../app/styles/const";
 
 interface StatusBarProps {
   itemLeft: number;
@@ -10,12 +10,14 @@ interface StatusBarProps {
   currentTab: "all" | "active" | "favorite";
 }
 
+const light = ColorModeEnum.Light
+
 const getTextColor = (
   isSelected: boolean,
   colorMode: ColorMode
 ): "grey" | "black" | "white" => {
   if (isSelected) {
-    return colorMode === "light" ? "black" : "white";
+    return colorMode === light ? "black" : "white";
   } else {
     return "grey";
   }
@@ -28,7 +30,7 @@ export const StatusBar: FC<StatusBarProps> = ({
   currentTab,
 }) => {
   const [isMobileView, setIsMobileView] = useState(false);
-  const { colorMode } = useColorMode();
+  const { colorMode } = useColorMode() as { colorMode: ColorMode };
 
   useEffect(() => {
     function handleResize() {
@@ -47,7 +49,7 @@ export const StatusBar: FC<StatusBarProps> = ({
   return (
     <Box
       fontWeight={"700"}
-      color={colorMode === "light" ? "black" : "white"}
+      color={colorMode === light ? "black" : "white"}
       userSelect={"none"}
       borderTop="1px solid grey"
     >
@@ -58,7 +60,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             justifyContent={"space-between"}
             alignItems={"center"}
             p={"1.2em"}
-            backgroundColor={colorMode === "light" ? "white" : darkBg}
+            backgroundColor={colorMode === light ? "white" : darkBg}
             borderBottomRadius={"10px"}
           >
             <Text>
@@ -68,7 +70,7 @@ export const StatusBar: FC<StatusBarProps> = ({
               data-testid={TestId.StatusBarClear}
               onClick={handleClearAllClick}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
             >
               Clear Favorite
             </Text>
@@ -79,13 +81,13 @@ export const StatusBar: FC<StatusBarProps> = ({
             justifyContent={"center"}
             alignItems={"center"}
             borderRadius={"10px"}
-            backgroundColor={colorMode === "light" ? "white" : darkBg}
+            backgroundColor={colorMode === light ? "white" : darkBg}
             gap={"1em"}
           >
             <Text
               onClick={() => handleTabClick("all")}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
               color={getTextColor(currentTab === "all", colorMode)}
             >
               All
@@ -93,7 +95,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             <Text
               onClick={() => handleTabClick("active")}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
               color={getTextColor(currentTab === "active", colorMode)}
             >
               Active
@@ -101,7 +103,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             <Text
               onClick={() => handleTabClick("favorite")}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
               color={getTextColor(currentTab === "favorite", colorMode)}
             >
               Favorite
@@ -114,7 +116,7 @@ export const StatusBar: FC<StatusBarProps> = ({
           w={"100%"}
           justifyContent={"space-between"}
           borderBottomRadius={"10px"}
-          backgroundColor={colorMode === "light" ? "white" : darkBg}
+          backgroundColor={colorMode === light ? "white" : darkBg}
         >
           <Text>
             {itemLeft} {itemLeft > 1 ? "items" : "item"} active
@@ -123,13 +125,13 @@ export const StatusBar: FC<StatusBarProps> = ({
             justifyContent={"center"}
             alignItems={"center"}
             borderRadius={"10px"}
-            backgroundColor={colorMode === "light" ? "white" : darkBg}
+            backgroundColor={colorMode === light ? "white" : darkBg}
             gap={"1em"}
           >
             <Text
               onClick={() => handleTabClick("all")}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
               color={getTextColor(currentTab === "all", colorMode)}
             >
               All
@@ -137,7 +139,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             <Text
               onClick={() => handleTabClick("active")}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
               color={getTextColor(currentTab === "active", colorMode)}
             >
               Active
@@ -145,7 +147,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             <Text
               onClick={() => handleTabClick("favorite")}
               cursor={"pointer"}
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorMode === light ? "black" : "white" }}
               color={getTextColor(currentTab === "favorite", colorMode)}
             >
               Favorite
@@ -155,7 +157,7 @@ export const StatusBar: FC<StatusBarProps> = ({
             data-testid={TestId.StatusBarClear}
             onClick={handleClearAllClick}
             cursor={"pointer"}
-            _hover={{ color: colorMode === "light" ? "black" : "white" }}
+            _hover={{ color: colorMode === light ? "black" : "white" }}
           >
             Clear Favorite
           </Text>

@@ -37,31 +37,25 @@ Make sure you have the following installed
 
 ## Done
 
-- can add in editable mode user, if press enter or press button
-- can search user buy typing or press search
+- can search user by debounced typing
+- can add in editable mode user, if press enter or press button add
 
 ## Todo
 
-- debounce for typing
-- inputsection refactor
-- view added
-
-- ColorMode type to enum
+- add view mode feature by table or list
+    - add pagination and virtualization
+- classical architecture to module
+    - migrate from vite to webpack, vitest to jest
+    - custom hook for localstorage
+    - local storage or indexdb for offline
+- loaders state, skeleton for load
 - cannot add items with the same name in a row
-- add view mode feature
 - edit fields items
 - create transform class for user entity to user item list
-- classical architecture to module
-- loaders state, skeleton for load
-- custom hook for localstorage
 - add some styled scss
-- migrate from vite to webpack, vitest to jest
-- handleclick usecallback?
-- down button must close todos with animation
+- down button must close list with animation
 - relative paths for imports like @/module/ui/...
-- local storage or indexdb
 - feature api for first time init
-- ban
 - if last item no border bottom
 - Keyboard pressing, ctr+z, ctrl+e (radix ui?) e.t.c
 
