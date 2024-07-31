@@ -42,6 +42,12 @@ Make sure you have the following installed
 
 ## Todo
 
+- refactor
+    - extract ui and logic for make code more readable
+    - as for globalStyled remove (check doc)
+    - custom hook
+        - setReadable rename to toggleToggleable
+        - create abstraction for localstorage, (create initilization hook)
 - add view mode feature by table or list
     - add pagination and virtualization
 - classical architecture to module
